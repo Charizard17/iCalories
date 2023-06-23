@@ -15,6 +15,7 @@
 		400DB8C72A44EEF4009C467E /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8C62A44EEF4009C467E /* DataController.swift */; };
 		400DB8CB2A459CDF009C467E /* AddFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8CA2A459CDF009C467E /* AddFoodView.swift */; };
 		400DB8CD2A459FF7009C467E /* TimeFormatting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8CC2A459FF7009C467E /* TimeFormatting.swift */; };
+		400DB8CF2A45A940009C467E /* EditFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8CE2A45A940009C467E /* EditFoodView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		400DB8C62A44EEF4009C467E /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		400DB8CA2A459CDF009C467E /* AddFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFoodView.swift; sourceTree = "<group>"; };
 		400DB8CC2A459FF7009C467E /* TimeFormatting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeFormatting.swift; sourceTree = "<group>"; };
+		400DB8CE2A45A940009C467E /* EditFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFoodView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +93,7 @@
 			children = (
 				400DB8CA2A459CDF009C467E /* AddFoodView.swift */,
 				400DB8B52A44ECD0009C467E /* ContentView.swift */,
+				400DB8CE2A45A940009C467E /* EditFoodView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				400DB8C72A44EEF4009C467E /* DataController.swift in Sources */,
 				400DB8B42A44ECD0009C467E /* iCaloriesApp.swift in Sources */,
 				400DB8C52A44EE4B009C467E /* FoodModel.xcdatamodeld in Sources */,
+				400DB8CF2A45A940009C467E /* EditFoodView.swift in Sources */,
 				400DB8CD2A459FF7009C467E /* TimeFormatting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
