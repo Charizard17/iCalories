@@ -12,11 +12,16 @@ struct AddFoodView: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var name = ""
+    @State private var date = Date()
     @State private var calories: Double = 0
     
     var body: some View {
         Form {
             Section {
+                DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
+                    Text("Select a date")
+                }
+                
                 TextField("Food name", text: $name)
                 
                 VStack {
@@ -28,7 +33,7 @@ struct AddFoodView: View {
                 HStack {
                     Spacer()
                     Button("Submit") {
-                        DataController().addFood(name: name, calories: calories, context: managedObjContext)
+                        DataController().addFood(date: date, name: name, calories: calories, context: managedObjContext)
                         dismiss()
                     }
                     Spacer()
