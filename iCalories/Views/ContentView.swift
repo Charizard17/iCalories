@@ -10,9 +10,23 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjContext
+    
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var food: FetchedResults<Food>
     
     @State private var showingAddView = false
+    
+    var favourites: [FavouriteFood] = [
+        FavouriteFood(id: 1, name: "Apple", calories: 200),
+        FavouriteFood(id: 2, name: "Orange", calories: 150),
+        FavouriteFood(id: 3, name: "Banana", calories: 300),
+        FavouriteFood(id: 4, name: "Kiwi", calories: 50),
+        FavouriteFood(id: 5, name: "Watermelon", calories: 100),
+        FavouriteFood(id: 6, name: "Carrot", calories: 70),
+        FavouriteFood(id: 7, name: "Bread", calories: 350),
+        FavouriteFood(id: 8, name: "Steak", calories: 900),
+        FavouriteFood(id: 9, name: "Milk", calories: 120),
+        FavouriteFood(id: 10, name: "Oatmeal", calories: 200),
+    ]
     
     var body: some View {
         NavigationView {
@@ -20,6 +34,16 @@ struct ContentView: View {
                 Text("\(Int(totalCaloriesToday())) Kcal (Today)")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack {
+                        ForEach(favourites) { favourite in
+                            Button("\(favourite.name)") {
+                                DataController().addFood(date: Date(), name: favourite.name, calories: favourite.calories, context: managedObjContext)
+                            }
+                        }
+                    }
+                    .padding(.horizontal)
+                }
                 List {
                     ForEach(food) { food in
                         NavigationLink(destination: EditFoodView(food: food)) {
