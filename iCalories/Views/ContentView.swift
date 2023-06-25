@@ -37,9 +37,16 @@ struct ContentView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
                         ForEach(favourites) { favourite in
-                            Button("\(favourite.name)") {
-                                DataController().addFood(date: Date(), name: favourite.name, calories: favourite.calories, context: managedObjContext)
+                            VStack {
+                                Button("\(favourite.name)") {
+                                    DataController().addFood(date: Date(), name: favourite.name, calories: favourite.calories, context: managedObjContext)
+                                }
+                                .foregroundColor(.black)
+                                Text("\(Int(favourite.calories)) Kcal")
+                                    .foregroundColor(.gray)
+                                    .font(.system(size: 12))
                             }
+                            .padding(.horizontal)
                         }
                     }
                     .padding(.horizontal)
