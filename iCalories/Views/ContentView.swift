@@ -12,6 +12,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var food: FetchedResults<Food>
+    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .reverse)]) var favoriteFood: FetchedResults<FavoriteFood>
     
     @State private var showingAddView = false
     @State private var showingSearchView = false
@@ -26,27 +27,13 @@ struct ContentView: View {
                     .padding(.horizontal)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(favouriteFoods) { food in
+                        ForEach(favoriteFood) { favFood in
                             VStack {
-                                Button("\(food.name)") {
-                                    DataController().addFood(date: Date(), name: food.name, calories: food.calories, context: managedObjContext)
-                                    // Here, you can also call the API controller to retrieve additional food information
-                                    apiController.searchFoodItems(withQuery: food.name) { (foodItems, error) in
-                                        if let error = error {
-                                            print("Error: \(error)")
-                                            return
-                                        }
-                                        
-                                        if let foodItems = foodItems, let firstFoodItem = foodItems.first {
-                                            // Use the retrieved food item's information, e.g., serving size, additional details
-                                            print("Serving Size: \(Int(firstFoodItem.servingSize!) )\(firstFoodItem.servingSizeUnit ?? "")")
-                                            print("Ingredients: \(firstFoodItem.ingredients ?? "")")
-                                            print("Calories: \(firstFoodItem.calories ?? 0) Kcal")
-                                        }
-                                    }
+                                Button("\(favFood.name!)") {
+                                    DataController().addFood(date: Date(), name: favFood.name!, calories: favFood.calories, context: managedObjContext)
                                 }
                                 .foregroundColor(.black)
-                                Text("\(Int(food.calories)) Kcal")
+                                Text("\(Int(favFood.calories)) Kcal")
                                     .foregroundColor(.gray)
                                     .font(.system(size: 12))
                             }
@@ -65,6 +52,13 @@ struct ContentView: View {
                                     Text("\(Int(food.calories))") + Text(" calories").foregroundColor(.red)
                                 }
                                 Spacer()
+                                // Favorite func not working
+                                Button {
+                                    addFavoriteFood()
+                                } label: {
+                                    Image(systemName: "star")
+                                        .foregroundColor(.yellow)
+                                }
                                 Text(calcTimeSince(date: food.date!))
                                     .foregroundColor(.gray)
                                     .italic()
@@ -104,11 +98,15 @@ struct ContentView: View {
         .navigationViewStyle(.stack)
     }
     
-    private func deleteFood(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { food[$0] }.forEach(managedObjContext.delete)
-            DataController().save(context: managedObjContext)
+        private func deleteFood(offsets: IndexSet) {
+            withAnimation {
+                offsets.map { food[$0] }.forEach(managedObjContext.delete)
+                DataController().save(context: managedObjContext)
+            }
         }
+    
+    private func addFavoriteFood() {
+        print("add favorite food")
     }
     
     private func totalCaloriesToday() -> Double {

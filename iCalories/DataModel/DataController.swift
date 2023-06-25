@@ -45,4 +45,13 @@ class DataController: ObservableObject {
         
         save(context: context)
     }
+    
+    func addFavoriteFood(name: String, calories: Double, context: NSManagedObjectContext) {
+        let favoriteFood = FavoriteFood()
+        favoriteFood.id = UUID()
+        favoriteFood.name = name
+        favoriteFood.calories = calories
+        
+        save(context: context)
+    }
 }
