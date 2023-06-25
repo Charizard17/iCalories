@@ -14,19 +14,9 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var food: FetchedResults<Food>
     
     @State private var showingAddView = false
+    @State private var showingSearchView = false
     
-    var favourites: [FavouriteFood] = [
-        FavouriteFood(id: 1, name: "Apple", calories: 200),
-        FavouriteFood(id: 2, name: "Orange", calories: 150),
-        FavouriteFood(id: 3, name: "Banana", calories: 300),
-        FavouriteFood(id: 4, name: "Kiwi", calories: 50),
-        FavouriteFood(id: 5, name: "Watermelon", calories: 100),
-        FavouriteFood(id: 6, name: "Carrot", calories: 70),
-        FavouriteFood(id: 7, name: "Bread", calories: 350),
-        FavouriteFood(id: 8, name: "Steak", calories: 900),
-        FavouriteFood(id: 9, name: "Milk", calories: 120),
-        FavouriteFood(id: 10, name: "Oatmeal", calories: 200),
-    ]
+    var apiController = USDAFoodAPIController()
     
     var body: some View {
         NavigationView {
@@ -36,13 +26,27 @@ struct ContentView: View {
                     .padding(.horizontal)
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack {
-                        ForEach(favourites) { favourite in
+                        ForEach(favouriteFoods) { food in
                             VStack {
-                                Button("\(favourite.name)") {
-                                    DataController().addFood(date: Date(), name: favourite.name, calories: favourite.calories, context: managedObjContext)
+                                Button("\(food.name)") {
+                                    DataController().addFood(date: Date(), name: food.name, calories: food.calories, context: managedObjContext)
+                                    // Here, you can also call the API controller to retrieve additional food information
+                                    apiController.searchFoodItems(withQuery: food.name) { (foodItems, error) in
+                                        if let error = error {
+                                            print("Error: \(error)")
+                                            return
+                                        }
+                                        
+                                        if let foodItems = foodItems, let firstFoodItem = foodItems.first {
+                                            // Use the retrieved food item's information, e.g., serving size, additional details
+                                            print("Serving Size: \(Int(firstFoodItem.servingSize!) )\(firstFoodItem.servingSizeUnit ?? "")")
+                                            print("Ingredients: \(firstFoodItem.ingredients ?? "")")
+                                            print("Calories: \(firstFoodItem.calories ?? 0) Kcal")
+                                        }
+                                    }
                                 }
                                 .foregroundColor(.black)
-                                Text("\(Int(favourite.calories)) Kcal")
+                                Text("\(Int(food.calories)) Kcal")
                                     .foregroundColor(.gray)
                                     .font(.system(size: 12))
                             }
@@ -79,9 +83,19 @@ struct ContentView: View {
                         Label("Add Food", systemImage: "plus.circle")
                     }
                 }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        showingSearchView.toggle()
+                    } label: {
+                        Label("Search Food", systemImage: "magnifyingglass")
+                    }
+                }
                 ToolbarItem(placement: .navigationBarLeading) {
                     EditButton()
                 }
+            }
+            .sheet(isPresented: $showingSearchView) {
+                SearchFoodView()
             }
             .sheet(isPresented: $showingAddView) {
                 AddFoodView()
