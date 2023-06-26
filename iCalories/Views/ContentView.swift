@@ -52,13 +52,13 @@ struct ContentView: View {
                                     Text("\(Int(food.calories))") + Text(" calories").foregroundColor(.red)
                                 }
                                 Spacer()
-                                // Favorite func not working
                                 Button {
                                     addFavoriteFood()
                                 } label: {
                                     Image(systemName: "star")
-                                        .foregroundColor(.yellow)
+                                        .foregroundColor(.orange)
                                 }
+                                .buttonStyle(PlainButtonStyle())
                                 Text(calcTimeSince(date: food.date!))
                                     .foregroundColor(.gray)
                                     .italic()
@@ -98,12 +98,12 @@ struct ContentView: View {
         .navigationViewStyle(.stack)
     }
     
-        private func deleteFood(offsets: IndexSet) {
-            withAnimation {
-                offsets.map { food[$0] }.forEach(managedObjContext.delete)
-                DataController().save(context: managedObjContext)
-            }
+    private func deleteFood(offsets: IndexSet) {
+        withAnimation {
+            offsets.map { food[$0] }.forEach(managedObjContext.delete)
+            DataController().save(context: managedObjContext)
         }
+    }
     
     private func addFavoriteFood() {
         print("add favorite food")
