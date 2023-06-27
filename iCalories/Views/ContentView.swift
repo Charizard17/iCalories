@@ -49,25 +49,34 @@ struct ContentView: View {
                 }
                 List {
                     ForEach(food) { food in
-                        NavigationLink(destination: EditFoodView(food: food)) {
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text(food.name!)
-                                        .bold()
-                                    Text("\(Int(food.calories))") + Text(" calories").foregroundColor(.red)
-                                }
-                                Spacer()
-                                Button {
-                                    addFavoriteFood(name: food.name!, calories: food.calories)
-                                } label: {
-                                    Image(systemName: favoriteFood.contains(where: {$0.name == food.name!}) == false ? "star" : "star.fill")
-                                        .foregroundColor(.orange)
-                                }
-                                .buttonStyle(PlainButtonStyle())
-                                Text(calcTimeSince(date: food.date!))
-                                    .foregroundColor(.gray)
-                                    .italic()
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(food.name!)
+                                    .bold()
+                                Text("\(Int(food.calories))") + Text(" calories").foregroundColor(.red)
                             }
+                            Spacer()
+                            Text(calcTimeSince(date: food.date!))
+                                .foregroundColor(.gray)
+                                .italic()
+                            Button {
+                                addFavoriteFood(name: food.name!, calories: food.calories)
+                            } label: {
+                                Image(systemName: favoriteFood.contains(where: {$0.name == food.name!}) == false ? "star" : "star.fill")
+                                    .foregroundColor(.orange)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .background(Color.clear)
+                            Button {
+                                print("edit food view")
+                                //                                    navigate to EditFoodView
+                                //                                    EditFoodView(food: food)
+                            } label: {
+                                Image(systemName: "pencil")
+                                    .foregroundColor(.blue)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                            .background(Color.clear)
                         }
                     }
                     .onDelete(perform: deleteFood)
