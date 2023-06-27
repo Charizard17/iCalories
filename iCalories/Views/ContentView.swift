@@ -16,6 +16,7 @@ struct ContentView: View {
     
     @State private var showingAddView = false
     @State private var showingSearchView = false
+    @State private var showingEditFoodView = false
     
     var apiController = USDAFoodAPIController()
     
@@ -68,15 +69,16 @@ struct ContentView: View {
                             .buttonStyle(PlainButtonStyle())
                             .background(Color.clear)
                             Button {
-                                print("edit food view")
-                                //                                    navigate to EditFoodView
-                                //                                    EditFoodView(food: food)
+                                showingEditFoodView = true
                             } label: {
                                 Image(systemName: "pencil")
                                     .foregroundColor(.blue)
                             }
                             .buttonStyle(PlainButtonStyle())
                             .background(Color.clear)
+                            .sheet(isPresented: $showingEditFoodView) {
+                                EditFoodView(food: food)
+                            }
                         }
                     }
                     .onDelete(perform: deleteFood)

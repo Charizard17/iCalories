@@ -16,29 +16,32 @@ struct AddFoodView: View {
     @State private var calories: Double = 0
     
     var body: some View {
-        Form {
-            Section {
-                DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
-                    Text("Select a date")
-                }
-                
-                TextField("Food name", text: $name)
-                
-                VStack {
-                    Text("Calories: \(Int(calories))")
-                    Slider(value: $calories, in: 0...1000, step:10)
-                }
-                .padding()
-                
-                HStack {
-                    Spacer()
-                    Button("Submit") {
-                        DataController().addFood(date: date, name: name, calories: calories, context: managedObjContext)
-                        dismiss()
+        NavigationView {
+            Form {
+                Section {
+                    DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
+                        Text("Select a date")
                     }
-                    Spacer()
+                    
+                    TextField("Food name", text: $name)
+                    
+                    VStack {
+                        Text("Calories: \(Int(calories))")
+                        Slider(value: $calories, in: 0...1000, step:10)
+                    }
+                    .padding()
+                    
+                    HStack {
+                        Spacer()
+                        Button("Submit") {
+                            DataController().addFood(date: date, name: name, calories: calories, context: managedObjContext)
+                            dismiss()
+                        }
+                        Spacer()
+                    }
                 }
             }
+            .navigationTitle("Add Food")
         }
     }
 }

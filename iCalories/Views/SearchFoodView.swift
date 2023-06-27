@@ -14,33 +14,36 @@ struct SearchFoodView: View {
     var apiController = USDAFoodAPIController()
     
     var body: some View {
-        VStack {
-            HStack {
-                TextField("Search for food", text: $searchText, onCommit: {
-                    searchFood()
-                })
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                Button(action: {
-                    searchFood()
-                }) {
-                    Image(systemName: "magnifyingglass")
-                        .foregroundColor(.gray)
-                }
-                .padding(.horizontal)
-            }
-            .padding()
-            
-            List(searchResults, id: \.fdcId) { foodItem in
-                VStack(alignment: .leading) {
-                    Text(foodItem.description)
-                        .font(.headline)
-                    if let calories = foodItem.calories {
-                        Text("Calories: \(Int(calories))")
+        NavigationView {
+            VStack {
+                HStack {
+                    TextField("Search for food", text: $searchText, onCommit: {
+                        searchFood()
+                    })
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    Button(action: {
+                        searchFood()
+                    }) {
+                        Image(systemName: "magnifyingglass")
                             .foregroundColor(.gray)
+                    }
+                    .padding(.horizontal)
+                }
+                .padding()
+                
+                List(searchResults, id: \.fdcId) { foodItem in
+                    VStack(alignment: .leading) {
+                        Text(foodItem.description)
+                            .font(.headline)
+                        if let calories = foodItem.calories {
+                            Text("Calories: \(Int(calories))")
+                                .foregroundColor(.gray)
+                        }
                     }
                 }
             }
+            .navigationTitle("Search Food")
         }
     }
     
