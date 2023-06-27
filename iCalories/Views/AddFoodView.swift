@@ -14,6 +14,7 @@ struct AddFoodView: View {
     @State private var name = ""
     @State private var date = Date()
     @State private var calories: Double = 0
+    @State private var grams: Double = 0
     
     var body: some View {
         NavigationView {
@@ -26,15 +27,21 @@ struct AddFoodView: View {
                     TextField("Food name", text: $name)
                     
                     VStack {
+                        Text("Grams: \(Int(grams))")
+                        Slider(value: $grams, in: 0...1500, step:10)
+                    }
+                    .padding()
+                    
+                    VStack {
                         Text("Calories: \(Int(calories))")
-                        Slider(value: $calories, in: 0...1000, step:10)
+                        Slider(value: $calories, in: 0...1500, step:10)
                     }
                     .padding()
                     
                     HStack {
                         Spacer()
                         Button("Submit") {
-                            DataController().addFood(date: date, name: name, calories: calories, context: managedObjContext)
+                            DataController().addFood(date: date, name: name, grams: grams, calories: calories, context: managedObjContext)
                             dismiss()
                         }
                         Spacer()

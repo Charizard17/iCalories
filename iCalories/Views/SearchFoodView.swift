@@ -14,7 +14,7 @@ struct SearchFoodView: View {
                     .padding(.horizontal)
 
                 List(searchResults) { foodItem in
-                    SearchListItem(foodItem: foodItem)
+                    SearchFoodListItem(foodItem: foodItem)
                 }
             }
             .navigationTitle("Search Food")

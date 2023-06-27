@@ -26,6 +26,9 @@ struct ContentView: View {
                 Text("\(Int(totalCaloriesToday())) Kcal (Today)")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
+                Text("\(Int(totalGramsToday())) grams (Today)")
+                    .foregroundColor(.gray)
+                    .padding(.horizontal)
                 if favoriteFood.isEmpty == false {
                     VStack {
                         Divider()
@@ -34,7 +37,7 @@ struct ContentView: View {
                                 ForEach(favoriteFood) { favFood in
                                     VStack {
                                         Button("\(favFood.name!)") {
-                                            DataController().addFood(date: Date(), name: favFood.name!, calories: favFood.calories, context: managedObjContext)
+                                            DataController().addFood(date: Date(), name: favFood.name!, grams: favFood.grams, calories: favFood.calories, context: managedObjContext)
                                         }
                                         .foregroundColor(.black)
                                         Text("\(Int(favFood.calories)) Kcal")
@@ -55,13 +58,14 @@ struct ContentView: View {
                                 Text(food.name!)
                                     .bold()
                                 Text("\(Int(food.calories))") + Text(" calories").foregroundColor(.red)
+                                Text("\(Int(food.grams))") + Text(" grams").foregroundColor(.red)
                             }
                             Spacer()
                             Text(calcTimeSince(date: food.date!))
                                 .foregroundColor(.gray)
                                 .italic()
                             Button {
-                                addFavoriteFood(name: food.name!, calories: food.calories)
+                                addFavoriteFood(name: food.name!, grams: food.grams, calories: food.calories)
                             } label: {
                                 Image(systemName: favoriteFood.contains(where: {$0.name == food.name!}) == false ? "star" : "star.fill")
                                     .foregroundColor(.orange)
@@ -121,16 +125,26 @@ struct ContentView: View {
         }
     }
     
-    private func addFavoriteFood(name: String, calories: Double) {
+    private func addFavoriteFood(name: String, grams: Double, calories: Double) {
         withAnimation {
             if favoriteFood.contains(where: {$0.name == name}) {
                 favoriteFood.filter{$0.name == name}.forEach(managedObjContext.delete)
                 DataController().save(context: managedObjContext)
             } else {
-                DataController().addFavoriteFood(name: name, calories: calories, context: managedObjContext)
+                DataController().addFavoriteFood(name: name, grams: grams, calories: calories, context: managedObjContext)
             }
         }
         print("add favorite food")
+    }
+    
+    private func totalGramsToday() -> Double {
+        var gramsToday: Double = 0
+        for item in food {
+            if Calendar.current.isDateInToday(item.date!) {
+                gramsToday += item.grams
+            }
+        }
+        return gramsToday
     }
     
     private func totalCaloriesToday() -> Double {

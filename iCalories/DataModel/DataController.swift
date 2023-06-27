@@ -28,17 +28,18 @@ class DataController: ObservableObject {
         }
     }
     
-    func addFood(date: Date, name: String, calories: Double, context: NSManagedObjectContext) {
+    func addFood(date: Date, name: String, grams: Double, calories: Double, context: NSManagedObjectContext) {
         let food = Food(context: context)
         food.id = UUID()
         food.date = date
         food.name = name
+        food.grams = grams
         food.calories = calories
         
         save(context: context)
     }
     
-    func editFood(food: Food, date: Date, name: String, calories: Double, context: NSManagedObjectContext) {
+    func editFood(food: Food, date: Date, name: String, grams: Double, calories: Double, context: NSManagedObjectContext) {
         food.date = date
         food.name = name
         food.calories = calories
@@ -46,10 +47,11 @@ class DataController: ObservableObject {
         save(context: context)
     }
     
-    func addFavoriteFood(name: String, calories: Double, context: NSManagedObjectContext) {
+    func addFavoriteFood(name: String, grams: Double, calories: Double, context: NSManagedObjectContext) {
         let favoriteFood = FavoriteFood(context: context)
         favoriteFood.id = UUID()
         favoriteFood.name = name
+        favoriteFood.grams = grams
         favoriteFood.calories = calories
         
         save(context: context)

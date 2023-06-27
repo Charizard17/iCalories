@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchListItem: View {
+struct SearchFoodListItem: View {
     
     var foodItem: FoodItem
     
@@ -16,9 +16,11 @@ struct SearchListItem: View {
             VStack(alignment: .leading) {
                 Text(foodItem.name)
                     .bold()
-                Text("\(Int(foodItem.calories ?? 0))") + Text(" calories").foregroundColor(.red)
+                HStack {
+                    Text("\(Int(foodItem.calories ?? 0))") + Text(" calories").foregroundColor(.red)
+                    Text("\(Int(foodItem.servingSize))") + Text(" grams").foregroundColor(.red)
+                }
             }
-//            Spacer()
         }
     }
 }
