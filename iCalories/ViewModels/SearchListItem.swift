@@ -14,7 +14,7 @@ struct SearchListItem: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(foodItem.description)
+                Text(foodItem.name)
                     .bold()
                 Text("\(Int(foodItem.calories ?? 0))") + Text(" calories").foregroundColor(.red)
             }

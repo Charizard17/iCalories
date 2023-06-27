@@ -7,22 +7,19 @@
 
 import Foundation
 
-struct FoodItem: Codable {
-    let fdcId: Int
-    let description: String
-    let brandOwner: String?
-    let ingredients: String?
-    let servingSize: Double?
-    let servingSizeUnit: String?
+struct FoodItem: Codable, Identifiable {
+    let id = UUID()
+    let name: String
     let calories: Double?
+    let fat: Double?
+    let carbohydrates: Double?
+    let protein: Double?
     
     enum CodingKeys: String, CodingKey {
-        case fdcId
-        case description
-        case brandOwner
-        case ingredients
-        case servingSize
-        case servingSizeUnit
-        case calories
+        case name
+        case calories = "calories"
+        case fat = "fat_total_g"
+        case carbohydrates = "carbohydrates_total_g"
+        case protein = "protein_g"
     }
 }

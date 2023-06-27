@@ -18,7 +18,7 @@ struct ContentView: View {
     @State private var showingSearchView = false
     @State private var showingEditFoodView = false
     
-    var apiController = USDAFoodAPIController()
+    var apiController = FoodAPIController()
     
     var body: some View {
         NavigationView {

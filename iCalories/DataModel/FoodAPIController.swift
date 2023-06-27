@@ -8,21 +8,21 @@
 import Foundation
 
 struct FoodAPIController {
+    let baseURL = "https://api.calorieninjas.com/v1/"
     
-}
-
-class USDAFoodAPIController {
-    let baseURL = "https://api.nal.usda.gov/fdc/v1/"
-
     func searchFoodItems(withQuery query: String, completion: @escaping ([FoodItem]?, Error?) -> Void) {
-        let urlString = "\(baseURL)foods/search?query=\(query)&api_key=\(apiKey)"
+        let encodedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let urlString = "\(baseURL)nutrition?query=\(encodedQuery)"
 
         guard let url = URL(string: urlString) else {
             completion(nil, NSError(domain: "Invalid URL", code: 0, userInfo: nil))
             return
         }
+        
+        var request = URLRequest(url: url)
+        request.setValue(apiKey, forHTTPHeaderField: "X-Api-Key")
 
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 completion(nil, error)
                 return
@@ -36,7 +36,7 @@ class USDAFoodAPIController {
             do {
                 let decoder = JSONDecoder()
                 let searchResponse = try decoder.decode(SearchResponse.self, from: data)
-                completion(searchResponse.foods, nil)
+                completion(searchResponse.items, nil)
             } catch {
                 completion(nil, error)
             }
@@ -47,9 +47,10 @@ class USDAFoodAPIController {
 }
 
 struct SearchResponse: Codable {
-    let foods: [FoodItem]
+    let items: [FoodItem]
     
     enum CodingKeys: String, CodingKey {
-        case foods = "foods"
+        case items = "items"
     }
 }
+

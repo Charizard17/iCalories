@@ -5,7 +5,7 @@ struct SearchFoodView: View {
     @State private var searchResults: [FoodItem] = []
     @State private var isSearching = false
 
-    var apiController = USDAFoodAPIController()
+    var apiController = FoodAPIController()
 
     var body: some View {
         NavigationView {
@@ -13,7 +13,7 @@ struct SearchFoodView: View {
                 SearchBar(query: $query, isSearching: $isSearching, onSearchButtonTapped: searchFood)
                     .padding(.horizontal)
 
-                List(searchResults, id: \.fdcId) { foodItem in
+                List(searchResults) { foodItem in
                     SearchListItem(foodItem: foodItem)
                 }
             }
