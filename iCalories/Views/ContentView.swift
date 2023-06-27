@@ -25,22 +25,27 @@ struct ContentView: View {
                 Text("\(Int(totalCaloriesToday())) Kcal (Today)")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack {
-                        ForEach(favoriteFood) { favFood in
-                            VStack {
-                                Button("\(favFood.name!)") {
-                                    DataController().addFood(date: Date(), name: favFood.name!, calories: favFood.calories, context: managedObjContext)
+                if favoriteFood.isEmpty == false {
+                    VStack {
+                        Divider()
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            HStack {
+                                ForEach(favoriteFood) { favFood in
+                                    VStack {
+                                        Button("\(favFood.name!)") {
+                                            DataController().addFood(date: Date(), name: favFood.name!, calories: favFood.calories, context: managedObjContext)
+                                        }
+                                        .foregroundColor(.black)
+                                        Text("\(Int(favFood.calories)) Kcal")
+                                            .foregroundColor(.gray)
+                                            .font(.system(size: 12))
+                                    }
+                                    .padding(.horizontal)
                                 }
-                                .foregroundColor(.black)
-                                Text("\(Int(favFood.calories)) Kcal")
-                                    .foregroundColor(.gray)
-                                    .font(.system(size: 12))
                             }
                             .padding(.horizontal)
                         }
                     }
-                    .padding(.horizontal)
                 }
                 List {
                     ForEach(food) { food in
@@ -53,9 +58,9 @@ struct ContentView: View {
                                 }
                                 Spacer()
                                 Button {
-                                    addFavoriteFood()
+                                    addFavoriteFood(name: food.name!, calories: food.calories)
                                 } label: {
-                                    Image(systemName: "star")
+                                    Image(systemName: favoriteFood.contains(where: {$0.name == food.name!}) == false ? "star" : "star.fill")
                                         .foregroundColor(.orange)
                                 }
                                 .buttonStyle(PlainButtonStyle())
@@ -105,7 +110,15 @@ struct ContentView: View {
         }
     }
     
-    private func addFavoriteFood() {
+    private func addFavoriteFood(name: String, calories: Double) {
+        withAnimation {
+            if favoriteFood.contains(where: {$0.name == name}) {
+                favoriteFood.filter{$0.name == name}.forEach(managedObjContext.delete)
+                DataController().save(context: managedObjContext)
+            } else {
+                DataController().addFavoriteFood(name: name, calories: calories, context: managedObjContext)
+            }
+        }
         print("add favorite food")
     }
     
