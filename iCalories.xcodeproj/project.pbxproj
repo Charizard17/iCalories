@@ -19,6 +19,9 @@
 		400DB8D32A485D30009C467E /* USDAFoodAPIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8D22A485D30009C467E /* USDAFoodAPIController.swift */; };
 		400DB8D72A4887C2009C467E /* SearchFoodView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8D62A4887C2009C467E /* SearchFoodView.swift */; };
 		400DB8D92A488B2D009C467E /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8D82A488B2D009C467E /* Secrets.swift */; };
+		400DB8DC2A4B4779009C467E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8DB2A4B4779009C467E /* SearchBar.swift */; };
+		400DB8DE2A4B49B2009C467E /* SearchListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8DD2A4B49B2009C467E /* SearchListItem.swift */; };
+		400DB8E02A4B4A81009C467E /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8DF2A4B4A81009C467E /* FoodItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +38,9 @@
 		400DB8D22A485D30009C467E /* USDAFoodAPIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USDAFoodAPIController.swift; sourceTree = "<group>"; };
 		400DB8D62A4887C2009C467E /* SearchFoodView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFoodView.swift; sourceTree = "<group>"; };
 		400DB8D82A488B2D009C467E /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		400DB8DB2A4B4779009C467E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		400DB8DD2A4B49B2009C467E /* SearchListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListItem.swift; sourceTree = "<group>"; };
+		400DB8DF2A4B4A81009C467E /* FoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +75,7 @@
 			children = (
 				400DB8B32A44ECD0009C467E /* iCaloriesApp.swift */,
 				400DB8C92A459CC0009C467E /* Helpers */,
+				400DB8DA2A4B4765009C467E /* ViewModels */,
 				400DB8C82A459CBA009C467E /* Views */,
 				400DB8C22A44EE2C009C467E /* DataModel */,
 				400DB8B72A44ECD1009C467E /* Assets.xcassets */,
@@ -113,6 +120,16 @@
 				400DB8CC2A459FF7009C467E /* TimeFormatting.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		400DB8DA2A4B4765009C467E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				400DB8DB2A4B4779009C467E /* SearchBar.swift */,
+				400DB8DD2A4B49B2009C467E /* SearchListItem.swift */,
+				400DB8DF2A4B4A81009C467E /* FoodItem.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,7 +210,10 @@
 				400DB8B42A44ECD0009C467E /* iCaloriesApp.swift in Sources */,
 				400DB8C52A44EE4B009C467E /* FoodModel.xcdatamodeld in Sources */,
 				400DB8CF2A45A940009C467E /* EditFoodView.swift in Sources */,
+				400DB8DE2A4B49B2009C467E /* SearchListItem.swift in Sources */,
+				400DB8E02A4B4A81009C467E /* FoodItem.swift in Sources */,
 				400DB8CD2A459FF7009C467E /* TimeFormatting.swift in Sources */,
+				400DB8DC2A4B4779009C467E /* SearchBar.swift in Sources */,
 				400DB8D92A488B2D009C467E /* Secrets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
