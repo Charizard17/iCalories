@@ -22,26 +22,29 @@ struct EditFoodView: View {
         NavigationView {
             Form {
                 Section {
-                    DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
-                        Text("Select a date")
-                    }
-                    
                     TextField("\(food.name!)", text: $name)
+                        .font(.system(size: 20))
+                        .padding(.vertical)
                         .onAppear {
                             date = food.date!
                             name = food.name!
+                            grams = food.grams
                             calories = food.calories
                         }
                     VStack {
                         Text("Grams: \(Int(grams))")
-                        Slider(value: $grams, in: 0...1500, step: 10)
+                        Slider(value: $grams, in: 0...1500, step: 5)
                     }
                     .padding()
                     VStack {
                         Text("Calories: \(Int(calories))")
-                        Slider(value: $calories, in: 0...1500, step: 10)
+                        Slider(value: $calories, in: 0...1500, step: 5)
                     }
                     .padding()
+                    
+                    DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
+                        Text("Select a date")
+                    }
                     
                     HStack {
                         Spacer()

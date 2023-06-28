@@ -14,8 +14,8 @@ struct ContentView: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var food: FetchedResults<Food>
     @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .reverse)]) var favoriteFood: FetchedResults<FavoriteFood>
     
-    @State private var showingAddView = false
-    @State private var showingSearchView = false
+    @State private var showingAddFoodView = false
+    @State private var showingSearchFoodView = false
     @State private var showingEditFoodView = false
     
     var apiController = FoodAPIController()
@@ -26,7 +26,7 @@ struct ContentView: View {
                 Text("\(Int(totalCaloriesToday())) Kcal (Today)")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
-                Text("\(Int(totalGramsToday())) grams (Today)")
+                Text("\(Int(totalGramsToday())) g (Today)")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
                 if favoriteFood.isEmpty == false {
@@ -41,6 +41,9 @@ struct ContentView: View {
                                         }
                                         .foregroundColor(.black)
                                         Text("\(Int(favFood.calories)) Kcal")
+                                            .foregroundColor(.gray)
+                                            .font(.system(size: 12))
+                                        Text("\(Int(favFood.grams)) g")
                                             .foregroundColor(.gray)
                                             .font(.system(size: 12))
                                     }
@@ -92,14 +95,14 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        showingAddView.toggle()
+                        showingAddFoodView.toggle()
                     } label: {
                         Label("Add Food", systemImage: "plus.circle")
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
-                        showingSearchView.toggle()
+                        showingSearchFoodView.toggle()
                     } label: {
                         Label("Search Food", systemImage: "magnifyingglass")
                     }
@@ -108,11 +111,11 @@ struct ContentView: View {
                     EditButton()
                 }
             }
-            .sheet(isPresented: $showingSearchView) {
+            .sheet(isPresented: $showingSearchFoodView) {
                 SearchFoodView()
             }
-            .sheet(isPresented: $showingAddView) {
-                AddFoodView()
+            .sheet(isPresented: $showingAddFoodView) {
+                AddFoodView(optName: nil, optGrams: nil, optCalories: nil)
             }
         }
         .navigationViewStyle(.stack)

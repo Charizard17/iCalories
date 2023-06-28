@@ -32,8 +32,6 @@ struct FoodAPIController {
                 completion(nil, NSError(domain: "No data received", code: 0, userInfo: nil))
                 return
             }
-            
-            print(String(data: data, encoding: .utf8))
 
             do {
                 let decoder = JSONDecoder()
