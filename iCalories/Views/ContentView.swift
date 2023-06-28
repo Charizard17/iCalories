@@ -23,10 +23,8 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("\(Int(totalGramsToday)) g (Today)")
-                    .foregroundColor(.gray)
-                    .padding(.horizontal)
-                Text("\(Int(totalCaloriesToday)) Kcal (Today)")
+                Text("Today: \(Int(totalGramsToday)) g – \(Int(totalCaloriesToday)) Kcal")
+                    .font(.system(size: 18))
                     .foregroundColor(.gray)
                     .padding(.horizontal)
                 if favoriteFoodArray.isEmpty == false {
@@ -122,7 +120,7 @@ struct ContentView: View {
                     .onDelete(perform: deleteFood)
                 }
             }
-            .navigationTitle("iCalories")
+            .navigationBarTitle("iCalories")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -184,11 +182,5 @@ struct ContentView: View {
             }
             return result
         }
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
     }
 }
