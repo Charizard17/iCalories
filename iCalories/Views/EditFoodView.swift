@@ -1,10 +1,3 @@
-//
-//  EditFoodView.swift
-//  iCalories
-//
-//  Created by Esad Dursun on 23.06.23.
-//
-
 import SwiftUI
 
 struct EditFoodView: View {
@@ -17,6 +10,8 @@ struct EditFoodView: View {
     @State private var date = Date()
     @State private var grams: Double = 0
     @State private var calories: Double = 0
+    @State private var ratio: Double? = nil
+    @State private var isAutoCalculateChecked = false
     
     var body: some View {
         NavigationView {
@@ -30,17 +25,31 @@ struct EditFoodView: View {
                             name = food.name!
                             grams = food.grams
                             calories = food.calories
+                            ratio = calculatedRatio
+                            isAutoCalculateChecked = (ratio != nil)
                         }
                     VStack {
                         Text("Grams: \(Int(grams))")
-                        Slider(value: $grams, in: 0...1500, step: 5)
+                        Slider(value: $grams, in: 0...1000, step: 5)
                     }
                     .padding()
+                    
                     VStack {
-                        Text("Calories: \(Int(calories))")
-                        Slider(value: $calories, in: 0...1500, step: 5)
+                        HStack {
+                            Text("Calories: \(Int(calories))")
+                            
+                            if !isAutoCalculateChecked {
+                                Spacer()
+                                Text("(Manual)")
+                            }
+                        }
+                        
+                        Slider(value: $calories, in: 0...2000, step: 5)
+                            .disabled(isAutoCalculateChecked)
                     }
                     .padding()
+                    
+                    Toggle("Auto Calculate", isOn: $isAutoCalculateChecked)
                     
                     DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
                         Text("Select a date")
@@ -57,6 +66,24 @@ struct EditFoodView: View {
                 }
             }
             .navigationTitle("Edit Food")
+            .onChange(of: grams) { newValue in
+                if isAutoCalculateChecked {
+                    calculateCaloriesFromGrams()
+                }
+            }
         }
+    }
+    
+    private func calculateCaloriesFromGrams() {
+        if isAutoCalculateChecked, let ratio = ratio {
+            calories = grams * ratio
+        }
+    }
+    
+    private var calculatedRatio: Double? {
+        guard grams != 0 else {
+            return nil
+        }
+        return calories / grams
     }
 }

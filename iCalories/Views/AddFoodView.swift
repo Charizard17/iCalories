@@ -14,21 +14,25 @@ struct AddFoodView: View {
     var optName: String?
     var optGrams: Double?
     var optCalories: Double?
+    var optRatio: Double?
     
     @State private var name: String
     @State private var date = Date()
     @State private var calories: Double
     @State private var grams: Double
+    @State private var isAutoCalculateChecked: Bool
     @State private var isNameEmptyAlertPresented = false
     
-    init(optName: String?, optGrams: Double?, optCalories: Double?) {
+    init(optName: String?, optGrams: Double?, optCalories: Double?, optRatio: Double?) {
         self.optName = optName
         self.optGrams = optGrams
         self.optCalories = optCalories
+        self.optRatio = optRatio
         
         _name = State(initialValue: optName ?? "")
         _calories = State(initialValue: optCalories ?? 0)
         _grams = State(initialValue: optGrams ?? 0)
+        _isAutoCalculateChecked = State(initialValue: (optGrams != nil && optCalories != nil))
     }
     
     var isNameEmpty: Bool {
@@ -45,15 +49,26 @@ struct AddFoodView: View {
                     
                     VStack {
                         Text("Grams: \(Int(grams))")
-                        Slider(value: $grams, in: 0...1500, step:5)
+                        Slider(value: $grams, in: 0...1000, step: 5)
                     }
                     .padding()
                     
                     VStack {
-                        Text("Calories: \(Int(calories))")
-                        Slider(value: $calories, in: 0...1500, step:5)
+                        HStack {
+                            Text("Calories: \(Int(calories))")
+                            
+                            if !isAutoCalculateChecked {
+                                Spacer()
+                                Text("(Manual)")
+                            }
+                        }
+                        
+                        Slider(value: $calories, in: 0...2000, step: 5)
+                            .disabled(isAutoCalculateChecked)
                     }
                     .padding()
+                    
+                    Toggle("Auto Calculate", isOn: $isAutoCalculateChecked)
                     
                     DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
                         Text("Select a date")
@@ -78,6 +93,17 @@ struct AddFoodView: View {
                 }
             }
             .navigationTitle("Add Food")
+            .onChange(of: grams) { newValue in
+                if isAutoCalculateChecked {
+                    calculateCaloriesFromGrams()
+                }
+            }
+        }
+    }
+    
+    private func calculateCaloriesFromGrams() {
+        if optRatio != 0 {
+            calories = grams * optRatio!
         }
     }
 }

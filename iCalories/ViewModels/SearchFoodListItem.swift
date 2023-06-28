@@ -12,6 +12,10 @@ struct SearchFoodListItem: View {
     var foodItem: FoodItem
     
     @State private var showingAddFoodView = false
+    
+    var optRatio: Double? {
+            foodItem.calories != nil && foodItem.servingSize != 0 ? foodItem.calories! / foodItem.servingSize : nil
+        }
 
     var body: some View {
         HStack {
@@ -29,7 +33,7 @@ struct SearchFoodListItem: View {
                 .buttonStyle(PlainButtonStyle())
                 .background(Color.clear)
                 .sheet(isPresented: $showingAddFoodView) {
-                    AddFoodView(optName: foodItem.name.prefix(1).capitalized + foodItem.name.dropFirst(), optGrams: foodItem.servingSize, optCalories: foodItem.calories)
+                    AddFoodView(optName: foodItem.name.prefix(1).capitalized + foodItem.name.dropFirst(), optGrams: foodItem.servingSize, optCalories: foodItem.calories, optRatio: optRatio)
                 }
             }
         }
