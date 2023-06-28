@@ -31,6 +31,7 @@ struct EditFoodView: View {
                     VStack {
                         Text("Grams: \(Int(grams))")
                         Slider(value: $grams, in: 0...1000, step: 5)
+                            .accentColor(.teal)
                     }
                     .padding()
                     
@@ -45,6 +46,7 @@ struct EditFoodView: View {
                         }
                         
                         Slider(value: $calories, in: 0...2000, step: 5)
+                            .accentColor(.teal)
                             .disabled(isAutoCalculateChecked)
                     }
                     .padding()
@@ -61,6 +63,7 @@ struct EditFoodView: View {
                             DataController().editFood(food: food, date: date, name: name, grams: grams, calories: calories, context: managedObjContext)
                             dismiss()
                         }
+                        .tint(.teal)
                         Spacer()
                     }
                 }

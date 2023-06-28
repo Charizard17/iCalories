@@ -50,6 +50,7 @@ struct AddFoodView: View {
                     VStack(alignment: .leading) {
                         Text("Grams: \(Int(grams))")
                         Slider(value: $grams, in: 0...1000, step: 5)
+                            .accentColor(.teal)
                     }
                     .padding()
                     
@@ -64,6 +65,7 @@ struct AddFoodView: View {
                         }
                         
                         Slider(value: $calories, in: 0...2000, step: 5)
+                            .accentColor(.teal)
                             .disabled(isAutoCalculateChecked)
                     }
                     .padding()
@@ -86,6 +88,7 @@ struct AddFoodView: View {
                                 dismiss()
                             }
                         }
+                        .tint(.teal)
                         .disabled(calories == 0 || grams == 0)
                         .alert(isPresented: $isNameEmptyAlertPresented) {
                             Alert(title: Text("Error"), message: Text("Please enter a food name"), dismissButton: .default(Text("OK")))

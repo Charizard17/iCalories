@@ -40,7 +40,7 @@ struct SearchFoodListItem: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 30, height: 30)
-                        .foregroundColor(.blue)
+                        .foregroundColor(.teal)
                 }
                 .buttonStyle(PlainButtonStyle())
                 .background(Color.clear)

@@ -11,37 +11,38 @@ struct SearchFoodView: View {
     var apiController = FoodAPIController()
     
     var body: some View {
-        NavigationView {
-            VStack {
-                SearchBar(query: $query, isSearching: $isSearching, onSearchButtonTapped: searchFood)
-                    .padding(.horizontal)
-                
-                List(searchResults) { foodItem in
-                    SearchFoodListItem(foodItem: foodItem)
-                }
-            }
-            .navigationTitle("Search Food")
-            .alert(isPresented: $showErrorAlert) {
-                Alert(title: Text("Error"), message: Text(errorMessage), dismissButton: .default(Text("OK")))
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        showInfoAlert = true
-                    }) {
-                        Image(systemName: "info.circle")
+            NavigationView {
+                VStack {
+                    SearchBar(query: $query, isSearching: $isSearching, onSearchButtonTapped: searchFood)
+                        .padding(.horizontal)
+                    
+                    List(searchResults) { foodItem in
+                        SearchFoodListItem(foodItem: foodItem)
                     }
                 }
-            }
-            .alert(isPresented: $showInfoAlert) {
-                Alert(
-                    title: Text("Search Query Guide"),
-                    message: Text("Enter the food or drink items you want to search for. You can also specify the quantity by prefixing it before the item. For example, '3 tomatoes' or '1lb beef brisket'. If no quantity is specified, the default is 100 grams.\n\nTo search for multiple items, separate them with commas. For example, 'bread, butter, milk'."),
-                    dismissButton: .default(Text("Close"))
-                )
+                .navigationTitle("Search Food")
+                .alert(isPresented: $showErrorAlert) {
+                    Alert(title: Text("Error"), message: Text(errorMessage), dismissButton: .default(Text("OK").foregroundColor(.teal)))
+                }
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: {
+                            showInfoAlert = true
+                        }) {
+                            Image(systemName: "info.circle")
+                                .foregroundColor(.teal)
+                        }
+                    }
+                }
+                .alert(isPresented: $showInfoAlert) {
+                    Alert(
+                        title: Text("Search Query Guide"),
+                        message: Text("Enter the food or drink items you want to search for. You can also specify the quantity by prefixing it before the item. For example, '3 tomatoes' or '1lb beef brisket'. If no quantity is specified, the default is 100 grams.\n\nTo search for multiple items, separate them with commas. For example, 'bread, butter, milk'."),
+                        dismissButton: .default(Text("Close").foregroundColor(.teal))
+                    )
+                }
             }
         }
-    }
     
     private func searchFood() {
         guard !query.isEmpty else {

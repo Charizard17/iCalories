@@ -21,11 +21,10 @@ struct SearchBar: View {
                         .foregroundColor(.white)
                         .shadow(color: Color.black.opacity(0.2), radius: 4, x: 0, y: 2)
                 )
-                .foregroundColor(.primary)
             
             Button(action: onSearchButtonTapped) {
                 Image(systemName: "magnifyingglass")
-                    .foregroundColor(.blue)
+                    .foregroundColor(.teal)
             }
             .padding(.horizontal)
             .disabled(isSearching)

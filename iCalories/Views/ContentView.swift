@@ -25,7 +25,7 @@ struct ContentView: View {
             VStack(alignment: .leading) {
                 Text("Today: \(Int(totalGramsToday)) g – \(Int(totalCaloriesToday)) Kcal")
                     .font(.system(size: 18))
-                    .foregroundColor(.gray)
+                    .foregroundColor(.teal)
                     .padding(.horizontal)
                 if favoriteFoodArray.isEmpty == false {
                     VStack {
@@ -38,11 +38,11 @@ struct ContentView: View {
                                             DataController().addFood(date: Date(), name: favFood.name!, grams: favFood.grams, calories: favFood.calories, context: managedObjContext)
                                         }) {
                                             Text(favFood.name!)
-                                                .foregroundColor(.black)
+                                                .foregroundColor(.white)
                                                 .font(.system(size: 15))
                                                 .padding(.horizontal, 12)
                                                 .padding(.vertical, 5)
-                                                .background(Color.white)
+                                                .background(Color.teal)
                                                 .cornerRadius(8)
                                                 .shadow(color: Color.gray.opacity(0.4), radius: 4, x: 0, y: 2)
                                                 .frame(maxWidth: 150)
@@ -60,7 +60,6 @@ struct ContentView: View {
                             }
                             .padding(.horizontal)
                         }
-                        Divider()
                     }
                 }
                 List {
@@ -104,7 +103,7 @@ struct ContentView: View {
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .frame(width: 15, height: 15)
-                                            .foregroundColor(.blue)
+                                            .foregroundColor(.teal)
                                     }
                                     .buttonStyle(PlainButtonStyle())
                                     .background(Color.clear)
@@ -115,7 +114,6 @@ struct ContentView: View {
                             }
                         }
                         .padding(.vertical, 5)
-                        
                     }
                     .onDelete(perform: deleteFood)
                 }
@@ -127,6 +125,8 @@ struct ContentView: View {
                         showingAddFoodView.toggle()
                     } label: {
                         Label("Add Food", systemImage: "plus.circle")
+                            .font(.system(size: 16))
+                            .foregroundColor(.teal)
                     }
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -134,10 +134,14 @@ struct ContentView: View {
                         showingSearchFoodView.toggle()
                     } label: {
                         Label("Search Food", systemImage: "magnifyingglass")
+                            .font(.system(size: 16))
+                            .foregroundColor(.teal)
                     }
                 }
                 ToolbarItem(placement: .navigationBarLeading) {
                     EditButton()
+                        .font(.system(size: 16))
+                        .foregroundColor(.teal)
                 }
             }
             .sheet(isPresented: $showingSearchFoodView) {
@@ -148,6 +152,9 @@ struct ContentView: View {
             }
         }
         .navigationViewStyle(.stack)
+        .accentColor(.teal)
+        .background(Color.red)
+        .font(.system(size: 17, weight: .regular))
     }
     
     private func deleteFood(offsets: IndexSet) {
