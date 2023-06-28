@@ -14,20 +14,32 @@ struct SearchFoodListItem: View {
     @State private var showingAddFoodView = false
     
     var optRatio: Double? {
-            foodItem.calories != nil && foodItem.servingSize != 0 ? foodItem.calories! / foodItem.servingSize : nil
-        }
-
+        foodItem.calories != nil && foodItem.servingSize != 0 ? foodItem.calories! / foodItem.servingSize : nil
+    }
+    
     var body: some View {
-        HStack {
+        HStack(alignment: .center) {
             VStack(alignment: .leading) {
                 Text(foodItem.name.prefix(1).capitalized + foodItem.name.dropFirst())
-                    .bold()
-                Text("\(Int(foodItem.calories ?? 0))") + Text(" calories").foregroundColor(.red)
-                Text("\(Int(foodItem.servingSize))") + Text(" grams").foregroundColor(.red)
+                    .font(.system(size: 18))
+                HStack {
+                    Text("\(Int(foodItem.servingSize)) g –")
+                        .foregroundColor(.gray)
+                        .font(.system(size: 16))
+                    Text("\(Int(foodItem.calories ?? 0)) Kcal")
+                        .foregroundColor(.gray)
+                        .font(.system(size: 16))
+                }
+            }
+            Spacer()
+            VStack(alignment: .trailing) {
                 Button {
                     showingAddFoodView = true
                 } label: {
                     Image(systemName: "plus.circle")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
                         .foregroundColor(.blue)
                 }
                 .buttonStyle(PlainButtonStyle())
