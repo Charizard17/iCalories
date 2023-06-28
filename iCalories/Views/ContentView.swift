@@ -12,7 +12,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var foodArray: FetchedResults<Food>
-    @FetchRequest(sortDescriptors: [SortDescriptor(\.name, order: .reverse)]) var favoriteFoodArray: FetchedResults<FavoriteFood>
+    @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FavoriteFood.name, ascending: true)]) var favoriteFoodArray: FetchedResults<FavoriteFood>
     
     @State private var showingAddFoodView = false
     @State private var showingSearchFoodView = false
@@ -23,70 +23,101 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("\(Int(totalGramsToday())) g (Today)")
+                Text("\(Int(totalGramsToday)) g (Today)")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
-                Text("\(Int(totalCaloriesToday())) Kcal (Today)")
+                Text("\(Int(totalCaloriesToday)) Kcal (Today)")
                     .foregroundColor(.gray)
                     .padding(.horizontal)
                 if favoriteFoodArray.isEmpty == false {
                     VStack {
                         Divider()
                         ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
+                            HStack(spacing: 10) {
                                 ForEach(favoriteFoodArray) { favFood in
-                                    VStack {
-                                        Button("\(favFood.name!)") {
+                                    VStack(spacing: 5) {
+                                        Button(action: {
                                             DataController().addFood(date: Date(), name: favFood.name!, grams: favFood.grams, calories: favFood.calories, context: managedObjContext)
+                                        }) {
+                                            Text(favFood.name!)
+                                                .foregroundColor(.black)
+                                                .font(.system(size: 15))
+                                                .padding(.horizontal, 12)
+                                                .padding(.vertical, 5)
+                                                .background(Color.white)
+                                                .cornerRadius(8)
+                                                .shadow(color: Color.gray.opacity(0.4), radius: 4, x: 0, y: 2)
+                                                .frame(maxWidth: 150)
                                         }
-                                        .foregroundColor(.black)
+                                        .frame(maxWidth: 150)
+                                        
                                         Text("\(Int(favFood.grams)) g")
                                             .foregroundColor(.gray)
-                                            .font(.system(size: 12))
+                                            .font(.caption)
                                         Text("\(Int(favFood.calories)) Kcal")
                                             .foregroundColor(.gray)
-                                            .font(.system(size: 12))
+                                            .font(.caption)
                                     }
-                                    .padding(.horizontal)
                                 }
                             }
                             .padding(.horizontal)
                         }
+                        Divider()
                     }
                 }
                 List {
                     ForEach(foodArray) { food in
-                        HStack {
+                        HStack(alignment: .firstTextBaseline) {
                             VStack(alignment: .leading) {
                                 Text(food.name ?? "")
-                                    .bold()
-                                Text("\(Int(food.grams))") + Text(" grams").foregroundColor(.red)
-                                Text("\(Int(food.calories))") + Text(" calories").foregroundColor(.red)
+                                    .font(.system(size: 18))
+                                HStack {
+                                    Text("\(Int(food.grams)) g –")
+                                        .foregroundColor(.gray)
+                                        .font(.system(size: 16))
+                                    Text("\(Int(food.calories)) Kcal")
+                                        .foregroundColor(.gray)
+                                        .font(.system(size: 16))
+                                }
                             }
                             Spacer()
-                            Text(calcTimeSince(date: food.date!))
-                                .foregroundColor(.gray)
-                                .italic()
-                            Button {
-                                addFavoriteFood(name: food.name!, grams: food.grams, calories: food.calories)
-                            } label: {
-                                Image(systemName: favoriteFoodArray.contains(where: {$0.name == food.name!}) == false ? "star" : "star.fill")
-                                    .foregroundColor(.orange)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            .background(Color.clear)
-                            Button {
-                                selectedFood = food
-                            } label: {
-                                Image(systemName: "pencil")
-                                    .foregroundColor(.blue)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            .background(Color.clear)
-                            .sheet(item: $selectedFood) { food in
-                                EditFoodView(food: food)
+                            VStack(alignment: .trailing) {
+                                Text(calcTimeSince(date: food.date!))
+                                    .foregroundColor(.gray)
+                                    .font(.system(size: 16))
+                                HStack(alignment: .firstTextBaseline) {
+                                    Spacer()
+                                    Button(action: {
+                                        toggleFavoriteFood(name: food.name!, grams: food.grams, calories: food.calories)
+                                    }) {
+                                        Image(systemName: favoriteFoodArray.contains(where: {$0.name == food.name!}) ? "star.fill" : "star")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 20, height: 20)
+                                            .foregroundColor(.orange)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                    .background(Color.clear)
+                                    .padding(.horizontal)
+                                    Button(action: {
+                                        selectedFood = food
+                                    }) {
+                                        Image(systemName: "pencil")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 15, height: 15)
+                                            .foregroundColor(.blue)
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                    .background(Color.clear)
+                                    .sheet(item: $selectedFood) { food in
+                                        EditFoodView(food: food)
+                                    }
+                                }
                             }
                         }
+                        .padding(.vertical, 5)
+                        
                     }
                     .onDelete(perform: deleteFood)
                 }
@@ -128,36 +159,31 @@ struct ContentView: View {
         }
     }
     
-    private func addFavoriteFood(name: String, grams: Double, calories: Double) {
-        withAnimation {
-            if favoriteFoodArray.contains(where: {$0.name == name}) {
-                favoriteFoodArray.filter{$0.name == name}.forEach(managedObjContext.delete)
-                DataController().save(context: managedObjContext)
-            } else {
-                DataController().addFavoriteFood(name: name, grams: grams, calories: calories, context: managedObjContext)
-            }
+    private func toggleFavoriteFood(name: String, grams: Double, calories: Double) {
+        if let favoriteFood = favoriteFoodArray.first(where: { $0.name == name }) {
+            managedObjContext.delete(favoriteFood)
+        } else {
+            DataController().addFavoriteFood(name: name, grams: grams, calories: calories, context: managedObjContext)
         }
-        print("add favorite food")
+        DataController().save(context: managedObjContext)
     }
     
-    private func totalGramsToday() -> Double {
-        var gramsToday: Double = 0
-        for item in foodArray {
-            if Calendar.current.isDateInToday(item.date!) {
-                gramsToday += item.grams
+    private var totalGramsToday: Double {
+        foodArray.reduce(0) { result, food in
+            if Calendar.current.isDateInToday(food.date!) {
+                return result + food.grams
             }
+            return result
         }
-        return gramsToday
     }
     
-    private func totalCaloriesToday() -> Double {
-        var caloriesToday: Double = 0
-        for item in foodArray {
-            if Calendar.current.isDateInToday(item.date!) {
-                caloriesToday += item.calories
+    private var totalCaloriesToday: Double {
+        foodArray.reduce(0) { result, food in
+            if Calendar.current.isDateInToday(food.date!) {
+                return result + food.calories
             }
+            return result
         }
-        return caloriesToday
     }
 }
 
