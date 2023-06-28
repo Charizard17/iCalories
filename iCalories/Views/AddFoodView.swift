@@ -47,17 +47,17 @@ struct AddFoodView: View {
                         .font(.system(size: 20))
                         .padding(.vertical)
                     
-                    VStack {
+                    VStack(alignment: .leading) {
                         Text("Grams: \(Int(grams))")
                         Slider(value: $grams, in: 0...1000, step: 5)
                     }
                     .padding()
                     
-                    VStack {
+                    VStack(alignment: .leading) {
                         HStack {
                             Text("Calories: \(Int(calories))")
                             
-                            if !isAutoCalculateChecked {
+                            if optRatio != nil && !isAutoCalculateChecked {
                                 Spacer()
                                 Text("(Manual)")
                             }
@@ -68,7 +68,9 @@ struct AddFoodView: View {
                     }
                     .padding()
                     
-                    Toggle("Auto Calculate", isOn: $isAutoCalculateChecked)
+                    if optRatio != nil {
+                        Toggle("Auto Calculate", isOn: $isAutoCalculateChecked)
+                    }
                     
                     DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
                         Text("Select a date")
@@ -102,8 +104,8 @@ struct AddFoodView: View {
     }
     
     private func calculateCaloriesFromGrams() {
-        if optRatio != 0 {
-            calories = grams * optRatio!
+        if let ratio = optRatio {
+            calories = grams * ratio
         }
     }
 }
