@@ -12,6 +12,11 @@ struct EditFoodView: View {
     @State private var calories: Double = 0
     @State private var ratio: Double? = nil
     @State private var isAutoCalculateChecked = false
+    @State private var isNameEmptyAlertPresented = false
+    
+    var isNameEmpty: Bool {
+        name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
     
     var body: some View {
         NavigationView {
@@ -28,6 +33,7 @@ struct EditFoodView: View {
                             ratio = calculatedRatio
                             isAutoCalculateChecked = (ratio != nil)
                         }
+                    
                     VStack {
                         Text("Grams: \(Int(grams))")
                         Slider(value: $grams, in: 0...1000, step: 5)
@@ -63,10 +69,18 @@ struct EditFoodView: View {
                     HStack {
                         Spacer()
                         Button("Submit") {
-                            DataController().editFood(food: food, date: date, name: name, grams: grams, calories: calories, context: managedObjContext)
-                            dismiss()
+                            if isNameEmpty {
+                                isNameEmptyAlertPresented = true
+                            } else {
+                                DataController().editFood(food: food, date: date, name: name, grams: grams, calories: calories, context: managedObjContext)
+                                dismiss()
+                            }
                         }
                         .tint(.teal)
+                        .disabled(calories == 0 || grams == 0)
+                        .alert(isPresented: $isNameEmptyAlertPresented) {
+                            Alert(title: Text("Error"), message: Text("Please enter a food name"), dismissButton: .default(Text("OK")))
+                        }
                         Spacer()
                     }
                 }

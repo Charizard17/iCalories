@@ -22,7 +22,7 @@ struct SearchFoodView: View {
                 
                 ZStack {
                     List(searchResults) { foodItem in
-                        SearchFoodListItem(foodItem: foodItem)
+                        SearchFoodItem(foodItem: foodItem)
                     }
                     
                     if isSearching {

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SearchFoodListItem: View {
+struct SearchFoodItem: View {
     
     var foodItem: FoodItem
     
