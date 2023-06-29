@@ -20,12 +20,15 @@ struct ContentView: View {
     
     var apiController = FoodAPIController()
     
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.systemTeal]
+    }
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
                 Text("Today: \(Int(totalGramsToday)) g – \(Int(totalCaloriesToday)) Kcal")
                     .font(.system(size: 18))
-                    .foregroundColor(.teal)
                     .padding(.horizontal)
                 if favoriteFoodArray.isEmpty == false {
                     VStack {
@@ -91,7 +94,7 @@ struct ContentView: View {
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .frame(width: 20, height: 20)
-                                            .foregroundColor(.orange)
+                                            .foregroundColor(.teal)
                                     }
                                     .buttonStyle(PlainButtonStyle())
                                     .background(Color.clear)
@@ -102,7 +105,7 @@ struct ContentView: View {
                                         Image(systemName: "pencil")
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
-                                            .frame(width: 15, height: 15)
+                                            .frame(width: 20, height: 20)
                                             .foregroundColor(.teal)
                                     }
                                     .buttonStyle(PlainButtonStyle())
@@ -118,7 +121,7 @@ struct ContentView: View {
                     .onDelete(perform: deleteFood)
                 }
             }
-            .navigationBarTitle("iCalories")
+            .navigationTitle("iCalories")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {

@@ -24,6 +24,9 @@ struct SearchBar: View {
             
             Button(action: onSearchButtonTapped) {
                 Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 25, height: 25)
                     .foregroundColor(.teal)
             }
             .padding(.horizontal)

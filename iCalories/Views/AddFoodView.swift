@@ -72,11 +72,14 @@ struct AddFoodView: View {
                     
                     if optRatio != nil {
                         Toggle("Auto Calculate", isOn: $isAutoCalculateChecked)
+                            .tint(.teal)
                     }
                     
                     DatePicker(selection: $date, in: ...Date.now, displayedComponents: .date) {
                         Text("Select a date")
                     }
+                    .datePickerStyle(CompactDatePickerStyle())
+                    .accentColor(.teal)
                     
                     HStack {
                         Spacer()
