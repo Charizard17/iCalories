@@ -27,9 +27,6 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .leading) {
-                Text("Today: \(Int(totalGramsToday)) g – \(Int(totalCaloriesToday)) Kcal")
-                    .font(.system(size: 18))
-                    .padding(.horizontal)
                 if favoriteFoodArray.isEmpty == false {
                     VStack {
                         Divider()
@@ -66,7 +63,12 @@ struct ContentView: View {
                     }
                 }
                 List {
-                    ForEach(foodArray) { food in
+                    VStack(alignment: .trailing) {
+                        Text("Today: \(Int(totalGramsToday)) g – \(Int(totalCaloriesToday)) Kcal")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.gray)
+                    }
+                    ForEach(Array(foodArray.enumerated()), id: \.1) { index, food in
                         HStack(alignment: .firstTextBaseline) {
                             VStack(alignment: .leading) {
                                 Text(food.name ?? "")
@@ -90,7 +92,7 @@ struct ContentView: View {
                                     Button(action: {
                                         toggleFavoriteFood(name: food.name!, grams: food.grams, calories: food.calories)
                                     }) {
-                                        Image(systemName: favoriteFoodArray.contains(where: {$0.name == food.name!}) ? "star.fill" : "star")
+                                        Image(systemName: favoriteFoodArray.contains(where: {$0.name == food.name! && $0.grams == food.grams && $0.calories == food.calories}) ? "star.fill" : "star")
                                             .resizable()
                                             .aspectRatio(contentMode: .fit)
                                             .frame(width: 20, height: 20)
@@ -117,6 +119,18 @@ struct ContentView: View {
                             }
                         }
                         .padding(.vertical, 5)
+                        .swipeActions(
+                            edge: .trailing,
+                            allowsFullSwipe: false,
+                            content: {
+                                Button(action: {
+                                    deleteFood(offsets: IndexSet([index]))
+                                }, label: {
+                                    Image(systemName: "trash")
+                                })
+                                .tint(.red)
+                            }
+                        )
                     }
                     .onDelete(perform: deleteFood)
                 }
@@ -141,11 +155,6 @@ struct ContentView: View {
                             .foregroundColor(.teal)
                     }
                 }
-                ToolbarItem(placement: .navigationBarLeading) {
-                    EditButton()
-                        .font(.system(size: 16))
-                        .foregroundColor(.teal)
-                }
             }
             .sheet(isPresented: $showingSearchFoodView) {
                 SearchFoodView()
@@ -168,7 +177,7 @@ struct ContentView: View {
     }
     
     private func toggleFavoriteFood(name: String, grams: Double, calories: Double) {
-        if let favoriteFood = favoriteFoodArray.first(where: { $0.name == name }) {
+        if let favoriteFood = favoriteFoodArray.first(where: { $0.name == name && $0.grams == grams && $0.calories == calories}) {
             managedObjContext.delete(favoriteFood)
         } else {
             DataController().addFavoriteFood(name: name, grams: grams, calories: calories, context: managedObjContext)
