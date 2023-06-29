@@ -155,6 +155,12 @@ struct ContentView: View {
                             .foregroundColor(.teal)
                     }
                 }
+                ToolbarItem(placement: .principal) {
+                    Image(uiImage: UIImage(named: "iCaloriesLogo") ?? UIImage())
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 30, height: 30)
+                }
             }
             .sheet(isPresented: $showingSearchFoodView) {
                 SearchFoodView()

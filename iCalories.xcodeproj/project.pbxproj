@@ -22,6 +22,7 @@
 		400DB8DC2A4B4779009C467E /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8DB2A4B4779009C467E /* SearchBar.swift */; };
 		400DB8DE2A4B49B2009C467E /* SearchFoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8DD2A4B49B2009C467E /* SearchFoodItem.swift */; };
 		400DB8E02A4B4A81009C467E /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8DF2A4B4A81009C467E /* FoodItem.swift */; };
+		400DB8E82A4DE719009C467E /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8E72A4DE719009C467E /* SplashScreenView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		400DB8DB2A4B4779009C467E /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		400DB8DD2A4B49B2009C467E /* SearchFoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFoodItem.swift; sourceTree = "<group>"; };
 		400DB8DF2A4B4A81009C467E /* FoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
+		400DB8E72A4DE719009C467E /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 		400DB8C82A459CBA009C467E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				400DB8E72A4DE719009C467E /* SplashScreenView.swift */,
 				400DB8B52A44ECD0009C467E /* ContentView.swift */,
 				400DB8CA2A459CDF009C467E /* AddFoodView.swift */,
 				400DB8CE2A45A940009C467E /* EditFoodView.swift */,
@@ -209,6 +212,7 @@
 				400DB8D72A4887C2009C467E /* SearchFoodView.swift in Sources */,
 				400DB8B42A44ECD0009C467E /* iCaloriesApp.swift in Sources */,
 				400DB8C52A44EE4B009C467E /* FoodModel.xcdatamodeld in Sources */,
+				400DB8E82A4DE719009C467E /* SplashScreenView.swift in Sources */,
 				400DB8CF2A45A940009C467E /* EditFoodView.swift in Sources */,
 				400DB8DE2A4B49B2009C467E /* SearchFoodItem.swift in Sources */,
 				400DB8E02A4B4A81009C467E /* FoodItem.swift in Sources */,
