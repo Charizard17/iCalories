@@ -20,18 +20,19 @@ struct SearchFoodView: View {
                 SearchBar(query: $query, isSearching: $isSearching, onSearchButtonTapped: searchFood)
                     .padding(.horizontal)
                 
-                List(searchResults) { foodItem in
-                    SearchFoodListItem(foodItem: foodItem)
+                ZStack {
+                    List(searchResults) { foodItem in
+                        SearchFoodListItem(foodItem: foodItem)
+                    }
+                    
+                    if isSearching {
+                        ProgressView()
+                            .scaleEffect(3)
+                            .tint(.teal)
+                    }
                 }
             }
             .navigationTitle("Search Food")
-            .alert(isPresented: $showErrorAlert) {
-                Alert(
-                    title: Text("Error"),
-                    message: Text(errorMessage),
-                    dismissButton: .default(Text("OK"))
-                )
-            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -41,6 +42,13 @@ struct SearchFoodView: View {
                             .foregroundColor(.teal)
                     }
                 }
+            }
+            .alert(isPresented: $showErrorAlert) {
+                Alert(
+                    title: Text("Error"),
+                    message: Text(errorMessage),
+                    dismissButton: .default(Text("OK"))
+                )
             }
             .alert(isPresented: $showInfoAlert) {
                 Alert(
@@ -61,19 +69,23 @@ struct SearchFoodView: View {
         isSearching = true
         
         apiController.searchFoodItems(withQuery: query) { [self] (foodItems, error) in
-            if let error = error {
-                errorMessage = error.localizedDescription
-                showErrorAlert = true
-            } else if let foodItems = foodItems {
-                if foodItems.isEmpty {
-                    errorMessage = "No results found for the given query."
+            DispatchQueue.main.async {
+                if let error = error {
+                    errorMessage = error.localizedDescription
                     showErrorAlert = true
-                } else {
+                    print("Error occurred: \(errorMessage)")
+                } else if let foodItems = foodItems {
                     searchResults = foodItems
+                    if foodItems.isEmpty {
+                        errorMessage = "No results found for the given query."
+                        showErrorAlert = true
+                        print("No results found.")
+                    }
                 }
+                
+                isSearching = false
             }
-            
-            isSearching = false
         }
     }
+    
 }
