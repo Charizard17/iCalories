@@ -25,6 +25,7 @@
 		400DB8E82A4DE719009C467E /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8E72A4DE719009C467E /* SplashScreenView.swift */; };
 		400DB8EA2A4F1F99009C467E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8E92A4F1F99009C467E /* ContentView.swift */; };
 		400DB8EC2A4F217B009C467E /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8EB2A4F217B009C467E /* CalculatorView.swift */; };
+		400DB8EE2A4F378C009C467E /* FoodItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8ED2A4F378C009C467E /* FoodItemRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		400DB8E72A4DE719009C467E /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		400DB8E92A4F1F99009C467E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		400DB8EB2A4F217B009C467E /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
+		400DB8ED2A4F378C009C467E /* FoodItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				400DB8DB2A4B4779009C467E /* SearchBar.swift */,
+				400DB8ED2A4F378C009C467E /* FoodItemRow.swift */,
 				400DB8DD2A4B49B2009C467E /* SearchFoodItem.swift */,
 			);
 			path = ViewModels;
@@ -224,6 +227,7 @@
 				400DB8DE2A4B49B2009C467E /* SearchFoodItem.swift in Sources */,
 				400DB8E02A4B4A81009C467E /* FoodItem.swift in Sources */,
 				400DB8EA2A4F1F99009C467E /* ContentView.swift in Sources */,
+				400DB8EE2A4F378C009C467E /* FoodItemRow.swift in Sources */,
 				400DB8CD2A459FF7009C467E /* TimeFormatting.swift in Sources */,
 				400DB8DC2A4B4779009C467E /* SearchBar.swift in Sources */,
 				400DB8D92A488B2D009C467E /* Secrets.swift in Sources */,

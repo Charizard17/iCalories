@@ -14,11 +14,16 @@ struct FoodListView: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var foodArray: FetchedResults<Food>
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FavoriteFood.name, ascending: true)]) var favoriteFoodArray: FetchedResults<FavoriteFood>
     
+    var apiController = FoodAPIController()
+    
     @State private var showingAddFoodView = false
     @State private var showingSearchFoodView = false
     @State private var selectedFood: Food? = nil
     
-    var apiController = FoodAPIController()
+    private var groupedFoodArray: [(Date, [Food])] {
+        Dictionary(grouping: foodArray, by: { Calendar.current.startOfDay(for: $0.date!) })
+            .sorted(by: { $0.0 > $1.0 })
+    }
     
     init() {
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.systemTeal]
@@ -62,75 +67,33 @@ struct FoodListView: View {
                         }
                     }
                 }
+                
                 List {
                     VStack(alignment: .trailing) {
                         Text("Today: \(Int(totalGramsToday)) g – \(Int(totalCaloriesToday)) Kcal")
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(.gray)
                     }
-                    ForEach(Array(foodArray.enumerated()), id: \.1) { index, food in
-                        HStack(alignment: .firstTextBaseline) {
-                            VStack(alignment: .leading) {
-                                Text(food.name ?? "")
-                                    .font(.system(size: 18))
-                                HStack {
-                                    Text("\(Int(food.grams)) g –")
-                                        .foregroundColor(.gray)
-                                        .font(.system(size: 16))
-                                    Text("\(Int(food.calories)) Kcal")
-                                        .foregroundColor(.gray)
-                                        .font(.system(size: 16))
-                                }
-                            }
-                            Spacer()
-                            VStack(alignment: .trailing) {
-                                Text(calcTimeSince(date: food.date!))
-                                    .foregroundColor(.gray)
-                                    .font(.system(size: 16))
-                                HStack(alignment: .firstTextBaseline) {
-                                    Spacer()
-                                    Button(action: {
-                                        toggleFavoriteFood(name: food.name!, grams: food.grams, calories: food.calories)
-                                    }) {
-                                        Image(systemName: favoriteFoodArray.contains(where: {$0.name == food.name! && $0.grams == food.grams && $0.calories == food.calories}) ? "star.fill" : "star")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 20, height: 20)
-                                            .foregroundColor(.teal)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                    .background(Color.clear)
-                                    .padding(.horizontal)
-                                    Button(action: {
-                                        selectedFood = food
-                                    }) {
-                                        Image(systemName: "pencil")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 20, height: 20)
-                                            .foregroundColor(.teal)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                    .background(Color.clear)
-                                    .sheet(item: $selectedFood) { food in
-                                        EditFoodView(food: food)
-                                    }
-                                }
+                    
+                    ForEach(groupedFoodArray, id: \.0) { date, foodItems in
+                        Section(header: Text(dateHeader(for: date))) {
+                            ForEach(foodItems) { food in
+                                FoodItemRow(food: food, favoriteFoodArray: favoriteFoodArray, managedObjectContext: managedObjContext, selectedFood: $selectedFood)
+                                    .padding(.vertical, 5)
+                                    .swipeActions(
+                                        edge: .trailing,
+                                        allowsFullSwipe: false,
+                                        content: {
+                                            Button(action: {
+                                                deleteFood(offsets: IndexSet([foodItems.firstIndex(of: food)!]))
+                                            }, label: {
+                                                Image(systemName: "trash")
+                                            })
+                                            .tint(.red)
+                                        }
+                                    )
                             }
                         }
-                        .padding(.vertical, 5)
-                        .swipeActions(
-                            edge: .trailing,
-                            allowsFullSwipe: false,
-                            content: {
-                                Button(action: {
-                                    deleteFood(offsets: IndexSet([index]))
-                                }, label: {
-                                    Image(systemName: "trash")
-                                })
-                                .tint(.red)
-                            }
-                        )
                     }
                     .onDelete(perform: deleteFood)
                 }
@@ -165,6 +128,9 @@ struct FoodListView: View {
             .sheet(isPresented: $showingSearchFoodView) {
                 SearchFoodView()
             }
+            .sheet(item: $selectedFood) { food in
+                EditFoodView(food: food)
+            }
             .sheet(isPresented: $showingAddFoodView) {
                 AddFoodView(optName: nil, optGrams: nil, optCalories: nil, optRatio: nil)
             }
@@ -177,18 +143,12 @@ struct FoodListView: View {
     
     private func deleteFood(offsets: IndexSet) {
         withAnimation {
-            offsets.map { foodArray[$0] }.forEach(managedObjContext.delete)
+            offsets.forEach { index in
+                let food = foodArray[index]
+                managedObjContext.delete(food)
+            }
             DataController().save(context: managedObjContext)
         }
-    }
-    
-    private func toggleFavoriteFood(name: String, grams: Double, calories: Double) {
-        if let favoriteFood = favoriteFoodArray.first(where: { $0.name == name && $0.grams == grams && $0.calories == calories}) {
-            managedObjContext.delete(favoriteFood)
-        } else {
-            DataController().addFavoriteFood(name: name, grams: grams, calories: calories, context: managedObjContext)
-        }
-        DataController().save(context: managedObjContext)
     }
     
     private var totalGramsToday: Double {
@@ -208,10 +168,31 @@ struct FoodListView: View {
             return result
         }
     }
+    
+    private func dateHeader(for date: Date) -> String {
+        let calendar = Calendar.current
+        
+        if calendar.isDateInToday(date) {
+            return "Today"
+        } else if calendar.isDateInYesterday(date) {
+            return "Yesterday"
+        } else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd MMMM yyyy"
+            return dateFormatter.string(from: date)
+        }
+    }
 }
 
 struct FoodListView_Previews: PreviewProvider {
     static var previews: some View {
-        FoodListView()
+        let context = DataController().container.viewContext
+        let food = Food(context: context)
+        food.name = "Apple"
+        food.grams = 200
+        food.calories = 100
+        
+        return FoodListView()
+            .environment(\.managedObjectContext, context)
     }
 }
