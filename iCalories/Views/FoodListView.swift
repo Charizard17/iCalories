@@ -86,7 +86,7 @@ struct FoodListView: View {
                                             allowsFullSwipe: false,
                                             content: {
                                                 Button(action: {
-                                                    deleteFood(offsets: IndexSet([foodItems.firstIndex(of: food)!]))
+                                                    deleteFood(food: food)
                                                 }, label: {
                                                     Image(systemName: "trash")
                                                 })
@@ -97,7 +97,6 @@ struct FoodListView: View {
                             }
                             .textCase(nil)
                         }
-                        .onDelete(perform: deleteFood)
                     }
                 }
             }
@@ -144,12 +143,9 @@ struct FoodListView: View {
         .font(.system(size: 17, weight: .regular))
     }
     
-    private func deleteFood(offsets: IndexSet) {
+    private func deleteFood(food: Food) {
         withAnimation {
-            offsets.forEach { index in
-                let food = foodArray[index]
-                managedObjContext.delete(food)
-            }
+            managedObjContext.delete(food)
             DataController().save(context: managedObjContext)
         }
     }
