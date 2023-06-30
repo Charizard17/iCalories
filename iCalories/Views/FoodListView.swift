@@ -69,33 +69,36 @@ struct FoodListView: View {
                 }
                 
                 List {
-                    VStack(alignment: .trailing) {
-                        Text("Today: \(Int(totalGramsToday)) g – \(Int(totalCaloriesToday)) Kcal")
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(.gray)
-                    }
-                    
-                    ForEach(groupedFoodArray, id: \.0) { date, foodItems in
-                        Section(header: Text(dateHeader(for: date))) {
-                            ForEach(foodItems) { food in
-                                FoodItemRow(food: food, favoriteFoodArray: favoriteFoodArray, managedObjectContext: managedObjContext, selectedFood: $selectedFood)
-                                    .padding(.vertical, 5)
-                                    .swipeActions(
-                                        edge: .trailing,
-                                        allowsFullSwipe: false,
-                                        content: {
-                                            Button(action: {
-                                                deleteFood(offsets: IndexSet([foodItems.firstIndex(of: food)!]))
-                                            }, label: {
-                                                Image(systemName: "trash")
-                                            })
-                                            .tint(.red)
-                                        }
-                                    )
-                            }
+                    if groupedFoodArray.count == 0 {
+                        VStack(alignment: .trailing) {
+                            Text("Today: 0 g – 0 Kcal")
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundColor(.gray)
                         }
+                    } else {
+                        ForEach(groupedFoodArray, id: \.0) { date, foodItems in
+                            Section(header: Text(dateHeader(for: date))) {
+                                ForEach(foodItems) { food in
+                                    FoodItemRow(food: food, favoriteFoodArray: favoriteFoodArray, managedObjectContext: managedObjContext, selectedFood: $selectedFood)
+                                        .padding(.vertical, 5)
+                                        .swipeActions(
+                                            edge: .trailing,
+                                            allowsFullSwipe: false,
+                                            content: {
+                                                Button(action: {
+                                                    deleteFood(offsets: IndexSet([foodItems.firstIndex(of: food)!]))
+                                                }, label: {
+                                                    Image(systemName: "trash")
+                                                })
+                                                .tint(.red)
+                                            }
+                                        )
+                                }
+                            }
+                            .textCase(nil)
+                        }
+                        .onDelete(perform: deleteFood)
                     }
-                    .onDelete(perform: deleteFood)
                 }
             }
             .navigationTitle("iCalories")
@@ -151,37 +154,55 @@ struct FoodListView: View {
         }
     }
     
-    private var totalGramsToday: Double {
-        foodArray.reduce(0) { result, food in
-            if Calendar.current.isDateInToday(food.date!) {
-                return result + food.grams
-            }
-            return result
-        }
+    private func totalGrams(for date: Date) -> Double {
+        foodArray
+            .filter { Calendar.current.isDate($0.date!, inSameDayAs: date) }
+            .reduce(0) { $0 + $1.grams }
     }
     
-    private var totalCaloriesToday: Double {
-        foodArray.reduce(0) { result, food in
-            if Calendar.current.isDateInToday(food.date!) {
-                return result + food.calories
-            }
-            return result
-        }
+    private func totalCalories(for date: Date) -> Double {
+        foodArray
+            .filter { Calendar.current.isDate($0.date!, inSameDayAs: date) }
+            .reduce(0) { $0 + $1.calories }
     }
     
     private func dateHeader(for date: Date) -> String {
         let calendar = Calendar.current
+        let dateFormatter = DateFormatter()
         
         if calendar.isDateInToday(date) {
-            return "Today"
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .none
+            let localizedDate = dateFormatter.string(from: date)
+            return "Today: \(localizedGramsAndCalories(for: date))"
         } else if calendar.isDateInYesterday(date) {
-            return "Yesterday"
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .none
+            let localizedDate = dateFormatter.string(from: date)
+            return "Yesterday: \(localizedGramsAndCalories(for: date))"
         } else {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd MMMM yyyy"
-            return dateFormatter.string(from: date)
+            dateFormatter.dateStyle = .medium
+            dateFormatter.timeStyle = .none
+            let localizedDate = dateFormatter.string(from: date)
+            return "\(localizedDate): \(localizedGramsAndCalories(for: date))"
         }
     }
+    
+    private func localizedGramsAndCalories(for date: Date) -> String {
+        let totalGrams = Int(self.totalGrams(for: date))
+        let totalCalories = Int(self.totalCalories(for: date))
+        
+        let gramsFormat = NumberFormatter()
+        gramsFormat.numberStyle = .decimal
+        let localizedGrams = gramsFormat.string(from: NSNumber(value: totalGrams)) ?? ""
+        
+        let caloriesFormat = NumberFormatter()
+        caloriesFormat.numberStyle = .decimal
+        let localizedCalories = caloriesFormat.string(from: NSNumber(value: totalCalories)) ?? ""
+        
+        return "\(localizedGrams) g, \(localizedCalories) Kcal"
+    }
+    
 }
 
 struct FoodListView_Previews: PreviewProvider {
