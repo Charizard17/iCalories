@@ -115,3 +115,9 @@ struct AddFoodView: View {
         }
     }
 }
+
+struct AddFoodView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddFoodView(optName: nil, optGrams: nil, optCalories: nil, optRatio: nil)
+    }
+}

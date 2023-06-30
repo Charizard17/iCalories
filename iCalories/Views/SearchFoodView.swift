@@ -8,6 +8,9 @@ struct SearchFoodView: View {
     @State private var showErrorAlert = false
     @State private var showInfoAlert = false
     
+    let infoTitle = "Search Query Guide"
+    let infoMessage = "Enter the food or drink items you want to search for. You can also specify the quantity by prefixing it before the item. For example, '3 tomatoes' or '1lb beef brisket'. If no quantity is specified, the default is 100 grams.\n\nTo search for multiple items, separate them with commas. For example, 'bread, butter, milk'."
+    
     var apiController = FoodAPIController()
     
     init() {
@@ -38,7 +41,8 @@ struct SearchFoodView: View {
                     Button(action: {
                         showInfoAlert = true
                     }) {
-                        Image(systemName: "info.circle")
+                        Label("Info", systemImage: "info.circle")
+                            .font(.system(size: 25))
                             .foregroundColor(.teal)
                     }
                 }
@@ -52,8 +56,8 @@ struct SearchFoodView: View {
             }
             .alert(isPresented: $showInfoAlert) {
                 Alert(
-                    title: Text("Search Query Guide"),
-                    message: Text("Enter the food or drink items you want to search for. You can also specify the quantity by prefixing it before the item. For example, '3 tomatoes' or '1lb beef brisket'. If no quantity is specified, the default is 100 grams.\n\nTo search for multiple items, separate them with commas. For example, 'bread, butter, milk'."),
+                    title: Text(infoTitle),
+                    message: Text(infoMessage),
                     dismissButton: .default(Text("Close"))
                 )
             }
@@ -88,4 +92,10 @@ struct SearchFoodView: View {
         }
     }
     
+}
+
+struct SearchFoodView_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchFoodView()
+    }
 }

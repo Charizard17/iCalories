@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		400DB8B42A44ECD0009C467E /* iCaloriesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8B32A44ECD0009C467E /* iCaloriesApp.swift */; };
-		400DB8B62A44ECD0009C467E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8B52A44ECD0009C467E /* ContentView.swift */; };
+		400DB8B62A44ECD0009C467E /* FoodListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8B52A44ECD0009C467E /* FoodListView.swift */; };
 		400DB8B82A44ECD1009C467E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400DB8B72A44ECD1009C467E /* Assets.xcassets */; };
 		400DB8BB2A44ECD1009C467E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400DB8BA2A44ECD1009C467E /* Preview Assets.xcassets */; };
 		400DB8C52A44EE4B009C467E /* FoodModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8C32A44EE4B009C467E /* FoodModel.xcdatamodeld */; };
@@ -23,12 +23,14 @@
 		400DB8DE2A4B49B2009C467E /* SearchFoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8DD2A4B49B2009C467E /* SearchFoodItem.swift */; };
 		400DB8E02A4B4A81009C467E /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8DF2A4B4A81009C467E /* FoodItem.swift */; };
 		400DB8E82A4DE719009C467E /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8E72A4DE719009C467E /* SplashScreenView.swift */; };
+		400DB8EA2A4F1F99009C467E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8E92A4F1F99009C467E /* ContentView.swift */; };
+		400DB8EC2A4F217B009C467E /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8EB2A4F217B009C467E /* CalculatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		400DB8B02A44ECD0009C467E /* iCalories.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCalories.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		400DB8B32A44ECD0009C467E /* iCaloriesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCaloriesApp.swift; sourceTree = "<group>"; };
-		400DB8B52A44ECD0009C467E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		400DB8B52A44ECD0009C467E /* FoodListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodListView.swift; sourceTree = "<group>"; };
 		400DB8B72A44ECD1009C467E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		400DB8BA2A44ECD1009C467E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		400DB8C42A44EE4B009C467E /* FoodModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FoodModel.xcdatamodel; sourceTree = "<group>"; };
@@ -43,6 +45,8 @@
 		400DB8DD2A4B49B2009C467E /* SearchFoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFoodItem.swift; sourceTree = "<group>"; };
 		400DB8DF2A4B4A81009C467E /* FoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
 		400DB8E72A4DE719009C467E /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		400DB8E92A4F1F99009C467E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		400DB8EB2A4F217B009C467E /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,10 +113,12 @@
 			isa = PBXGroup;
 			children = (
 				400DB8E72A4DE719009C467E /* SplashScreenView.swift */,
-				400DB8B52A44ECD0009C467E /* ContentView.swift */,
+				400DB8E92A4F1F99009C467E /* ContentView.swift */,
+				400DB8B52A44ECD0009C467E /* FoodListView.swift */,
 				400DB8CA2A459CDF009C467E /* AddFoodView.swift */,
 				400DB8CE2A45A940009C467E /* EditFoodView.swift */,
 				400DB8D62A4887C2009C467E /* SearchFoodView.swift */,
+				400DB8EB2A4F217B009C467E /* CalculatorView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -206,7 +212,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				400DB8CB2A459CDF009C467E /* AddFoodView.swift in Sources */,
-				400DB8B62A44ECD0009C467E /* ContentView.swift in Sources */,
+				400DB8B62A44ECD0009C467E /* FoodListView.swift in Sources */,
+				400DB8EC2A4F217B009C467E /* CalculatorView.swift in Sources */,
 				400DB8D32A485D30009C467E /* FoodAPIController.swift in Sources */,
 				400DB8C72A44EEF4009C467E /* DataController.swift in Sources */,
 				400DB8D72A4887C2009C467E /* SearchFoodView.swift in Sources */,
@@ -216,6 +223,7 @@
 				400DB8CF2A45A940009C467E /* EditFoodView.swift in Sources */,
 				400DB8DE2A4B49B2009C467E /* SearchFoodItem.swift in Sources */,
 				400DB8E02A4B4A81009C467E /* FoodItem.swift in Sources */,
+				400DB8EA2A4F1F99009C467E /* ContentView.swift in Sources */,
 				400DB8CD2A459FF7009C467E /* TimeFormatting.swift in Sources */,
 				400DB8DC2A4B4779009C467E /* SearchBar.swift in Sources */,
 				400DB8D92A488B2D009C467E /* Secrets.swift in Sources */,

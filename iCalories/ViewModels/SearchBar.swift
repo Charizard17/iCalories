@@ -16,6 +16,7 @@ struct SearchBar: View {
         HStack {
             TextField("Search for food", text: $query, onCommit: onSearchButtonTapped)
                 .padding(8)
+                .accentColor(.teal)
                 .background(
                     RoundedRectangle(cornerRadius: 10)
                         .foregroundColor(.white)

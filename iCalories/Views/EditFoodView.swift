@@ -107,3 +107,9 @@ struct EditFoodView: View {
         return calories / grams
     }
 }
+
+struct EditFoodView_Previews: PreviewProvider {
+    static var previews: some View {
+        EditFoodView(food: Food() as FetchedResults<Food>.Element)
+    }
+}
