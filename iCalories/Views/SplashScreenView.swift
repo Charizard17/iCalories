@@ -21,11 +21,11 @@ struct SplashScreenView: View {
         else {
             VStack {
                 VStack {
-                    Image(uiImage: UIImage(named: "iCaloriesLogo") ?? UIImage())
+                    Image(uiImage: UIImage(named: iCaloriesLogoAsset) ?? UIImage())
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 100, height: 100)
-                    Text("iCalories")
+                    Text(appTitle)
                         .font(.system(size: 30, weight: .bold))
                         .foregroundColor(.teal)
                 }

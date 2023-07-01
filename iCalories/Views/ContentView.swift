@@ -14,12 +14,12 @@ struct ContentView: View {
             FoodListView()
                 .tabItem {
                     Image(systemName: "list.bullet")
-                        .font(.system(size: 30, weight: .bold))
+                        .font(.system(size: iconSizeLarge, weight: .bold))
                 }
             CalculatorView()
                 .tabItem {
                     Image(systemName: "heart.text.square")
-                        .font(.system(size: 30, weight: .bold))
+                        .font(.system(size: iconSizeLarge, weight: .bold))
                 }
         }
         .accentColor(.teal)

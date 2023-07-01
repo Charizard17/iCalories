@@ -44,7 +44,7 @@ struct FoodListView: View {
                                         }) {
                                             Text(favFood.name!)
                                                 .foregroundColor(.white)
-                                                .font(.system(size: 15))
+                                                .font(.system(size: smallFontSize))
                                                 .padding(.horizontal, 12)
                                                 .padding(.vertical, 5)
                                                 .background(Color.teal)
@@ -72,7 +72,7 @@ struct FoodListView: View {
                     if groupedFoodArray.count == 0 {
                         VStack(alignment: .trailing) {
                             Text("Today: 0 g – 0 Kcal")
-                                .font(.system(size: 20, weight: .bold))
+                                .font(.system(size: largeFontSize, weight: .bold))
                                 .foregroundColor(.gray)
                         }
                     } else {
@@ -100,14 +100,14 @@ struct FoodListView: View {
                     }
                 }
             }
-            .navigationTitle("iCalories")
+            .navigationTitle(appTitle)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showingAddFoodView.toggle()
                     } label: {
                         Label("Add Food", systemImage: "plus.circle")
-                            .font(.system(size: 25))
+                            .font(.system(size: iconSizeMedium))
                             .foregroundColor(.teal)
                     }
                 }
@@ -116,12 +116,12 @@ struct FoodListView: View {
                         showingSearchFoodView.toggle()
                     } label: {
                         Label("Search Food", systemImage: "magnifyingglass")
-                            .font(.system(size: 25))
+                            .font(.system(size: iconSizeMedium))
                             .foregroundColor(.teal)
                     }
                 }
                 ToolbarItem(placement: .principal) {
-                    Image(uiImage: UIImage(named: "iCaloriesLogo") ?? UIImage())
+                    Image(uiImage: UIImage(named: iCaloriesLogoAsset) ?? UIImage())
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 35, height: 35)
@@ -140,7 +140,7 @@ struct FoodListView: View {
         .navigationViewStyle(.stack)
         .accentColor(.teal)
         .background(Color.red)
-        .font(.system(size: 17, weight: .regular))
+        .font(.system(size: mediumFontSize, weight: .regular))
     }
     
     private func deleteFood(food: Food) {

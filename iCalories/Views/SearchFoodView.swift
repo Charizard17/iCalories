@@ -36,7 +36,7 @@ struct SearchFoodView: View {
                     }
                     
                     if searchResults.isEmpty && !isSearching {
-                        Text("No results found.")
+                        Text(noResultsFoundText)
                             .foregroundColor(.gray)
                             .italic()
                     }

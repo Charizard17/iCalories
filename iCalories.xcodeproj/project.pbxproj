@@ -27,6 +27,7 @@
 		400DB8EC2A4F217B009C467E /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8EB2A4F217B009C467E /* CalculatorView.swift */; };
 		400DB8EE2A4F378C009C467E /* FoodItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8ED2A4F378C009C467E /* FoodItemRow.swift */; };
 		400DB8F22A4F812B009C467E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8F12A4F812B009C467E /* Utils.swift */; };
+		400DB8F42A50534F009C467E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8F32A50534F009C467E /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		400DB8EB2A4F217B009C467E /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
 		400DB8ED2A4F378C009C467E /* FoodItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemRow.swift; sourceTree = "<group>"; };
 		400DB8F12A4F812B009C467E /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		400DB8F32A50534F009C467E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				400DB8D82A488B2D009C467E /* Secrets.swift */,
 				400DB8CC2A459FF7009C467E /* TimeFormatting.swift */,
 				400DB8F12A4F812B009C467E /* Utils.swift */,
+				400DB8F32A50534F009C467E /* Constants.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -218,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				400DB8CB2A459CDF009C467E /* AddFoodView.swift in Sources */,
+				400DB8F42A50534F009C467E /* Constants.swift in Sources */,
 				400DB8B62A44ECD0009C467E /* FoodListView.swift in Sources */,
 				400DB8EC2A4F217B009C467E /* CalculatorView.swift in Sources */,
 				400DB8D32A485D30009C467E /* FoodAPIController.swift in Sources */,

@@ -21,14 +21,14 @@ struct SearchFoodItem: View {
         HStack(alignment: .center) {
             VStack(alignment: .leading) {
                 Text(foodItem.name.prefix(1).capitalized + foodItem.name.dropFirst())
-                    .font(.system(size: 18))
+                    .font(.system(size: mediumFontSize))
                 HStack {
                     Text("\(Int(foodItem.servingSize)) g –")
                         .foregroundColor(.gray)
-                        .font(.system(size: 16))
+                        .font(.system(size: smallFontSize))
                     Text("\(Int(foodItem.calories ?? 0)) Kcal")
                         .foregroundColor(.gray)
-                        .font(.system(size: 16))
+                        .font(.system(size: smallFontSize))
                 }
             }
             Spacer()

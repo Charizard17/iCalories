@@ -100,19 +100,19 @@ struct CalculatorView: View {
                     Text("Adjusted BMR: \(String(format: "%.2f", adjustedBMR))")
                 }
             }
-            .navigationTitle("BMR Calculator")
+            .navigationTitle(calculatorViewTitle)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
                         showInfoAlert = true
                     }) {
                         Label("Info", systemImage: "info.circle")
-                            .font(.system(size: 25))
+                            .font(.system(size: iconSizeMedium))
                             .foregroundColor(.teal)
                     }
                 }
                 ToolbarItem(placement: .principal) {
-                    Image(uiImage: UIImage(named: "iCaloriesLogo") ?? UIImage())
+                    Image(uiImage: UIImage(named: iCaloriesLogoAsset) ?? UIImage())
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 35, height: 35)

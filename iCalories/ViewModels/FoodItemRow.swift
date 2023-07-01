@@ -19,21 +19,21 @@ struct FoodItemRow: View {
         HStack(alignment: .firstTextBaseline) {
             VStack(alignment: .leading) {
                 Text(food.name ?? "")
-                    .font(.system(size: 18))
+                    .font(.system(size: mediumFontSize))
                 HStack {
                     Text("\(Int(food.grams)) g –")
                         .foregroundColor(.gray)
-                        .font(.system(size: 16))
+                        .font(.system(size: smallFontSize))
                     Text("\(Int(food.calories)) Kcal")
                         .foregroundColor(.gray)
-                        .font(.system(size: 16))
+                        .font(.system(size: smallFontSize))
                 }
             }
             Spacer()
             VStack(alignment: .trailing) {
                 Text(calcTimeSince(date: food.date!))
                     .foregroundColor(.gray)
-                    .font(.system(size: 16))
+                    .font(.system(size: smallFontSize))
                 HStack(alignment: .firstTextBaseline) {
                     Spacer()
                     Button(action: {
