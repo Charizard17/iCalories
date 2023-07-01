@@ -29,10 +29,10 @@ struct CalculatorView: View {
     
     
     let activityLevels = [("Sedentary", 1.2),
-                          ("Lightly", 1.375),
-                          ("Moderate", 1.55),
-                          ("Very", 1.725),
-                          ("Extra", 1.9)]
+                          ("Lightly Active", 1.375),
+                          ("Moderately Active", 1.55),
+                          ("Very Active", 1.725),
+                          ("Extra Active", 1.9)]
     
     var bmr: Double {
         let weightInKg = Double(weight) ?? 0
@@ -72,7 +72,6 @@ struct CalculatorView: View {
                             .tag(1)
                     }
                     .pickerStyle(SegmentedPickerStyle())
-                    
                 }
                 
                 Section {
@@ -93,7 +92,7 @@ struct CalculatorView: View {
                             Text(activityLevels[index].0)
                         }
                     }
-                    .pickerStyle(SegmentedPickerStyle())
+                    .pickerStyle(MenuPickerStyle())
                 }
                 
                 Section(header: Text("Calorie Calculation")) {
@@ -126,6 +125,7 @@ struct CalculatorView: View {
                     dismissButton: .default(Text("Close"))
                 )
             }
+            .modifier(DismissKeyboardModifier())
         }
         .accentColor(.teal)
     }

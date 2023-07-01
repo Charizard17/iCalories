@@ -106,6 +106,7 @@ struct AddFoodView: View {
                     calculateCaloriesFromGrams()
                 }
             }
+            .modifier(DismissKeyboardModifier())
         }
     }
     

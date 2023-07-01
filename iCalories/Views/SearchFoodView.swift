@@ -4,9 +4,9 @@ struct SearchFoodView: View {
     @State private var query = ""
     @State private var searchResults: [FoodItem] = []
     @State private var isSearching = false
+    @State private var showInfoAlert = false
     @State private var errorMessage: String = ""
     @State private var showErrorAlert = false
-    @State private var showInfoAlert = false
     
     let infoTitle = "Search Query Guide"
     let infoMessage = "Enter the food or drink items you want to search for. You can also specify the quantity by prefixing it before the item. For example, '3 tomatoes' or '1lb beef brisket'. If no quantity is specified, the default is 100 grams.\n\nTo search for multiple items, separate them with commas. For example, 'bread, butter, milk'."
@@ -24,6 +24,7 @@ struct SearchFoodView: View {
                     .padding(.horizontal)
                 
                 ZStack {
+                    
                     List(searchResults) { foodItem in
                         SearchFoodItem(foodItem: foodItem)
                     }
@@ -33,6 +34,12 @@ struct SearchFoodView: View {
                             .scaleEffect(3)
                             .tint(.teal)
                     }
+                    
+                    if searchResults.isEmpty && !isSearching {
+                        Text("No results found.")
+                            .foregroundColor(.gray)
+                            .italic()
+                    }
                 }
             }
             .navigationTitle("Search Food")
@@ -41,8 +48,10 @@ struct SearchFoodView: View {
                     Button(action: {
                         showInfoAlert = true
                     }) {
-                        Label("Info", systemImage: "info.circle")
-                            .font(.system(size: 25))
+                        Image(systemName: "info.circle")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 25, height: 25)
                             .foregroundColor(.teal)
                     }
                 }
@@ -61,6 +70,7 @@ struct SearchFoodView: View {
                     dismissButton: .default(Text("Close"))
                 )
             }
+            .modifier(DismissKeyboardModifier())
         }
     }
     
@@ -69,29 +79,23 @@ struct SearchFoodView: View {
             searchResults = []
             return
         }
-        
+
         isSearching = true
-        
+
         apiController.searchFoodItems(withQuery: query) { [self] (foodItems, error) in
             DispatchQueue.main.async {
+                isSearching = false
+
                 if let error = error {
                     errorMessage = error.localizedDescription
                     showErrorAlert = true
-                    print("Error occurred: \(errorMessage)")
                 } else if let foodItems = foodItems {
+                    showErrorAlert = false
                     searchResults = foodItems
-                    if foodItems.isEmpty {
-                        errorMessage = "No results found for the given query."
-                        showErrorAlert = true
-                        print("No results found.")
-                    }
                 }
-                
-                isSearching = false
             }
         }
     }
-    
 }
 
 struct SearchFoodView_Previews: PreviewProvider {

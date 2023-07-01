@@ -169,12 +169,10 @@ struct FoodListView: View {
         if calendar.isDateInToday(date) {
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .none
-            let localizedDate = dateFormatter.string(from: date)
             return "Today: \(localizedGramsAndCalories(for: date))"
         } else if calendar.isDateInYesterday(date) {
             dateFormatter.dateStyle = .medium
             dateFormatter.timeStyle = .none
-            let localizedDate = dateFormatter.string(from: date)
             return "Yesterday: \(localizedGramsAndCalories(for: date))"
         } else {
             dateFormatter.dateStyle = .medium
