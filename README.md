@@ -30,11 +30,21 @@ To get started with iCalories, follow these steps:
 
 ## Reminder
 
-You need an API Key from Calories Ninjas API. Go to https://calorieninjas.com/ and
-get your API Key.
-Then in Helpers folder create a file called Secrets.swift and add your
-api key like this one:
+**Obtain an API Key from CalorieNinja API**
+
+1. Go to the CalorieNinja website in your web browser.
+2. Sign up for an account or log in if you already have one.
+3. Navigate to your account/API settings page.
+4. Find your API key provided on that page.
+
+**Add the API Key to the iCalories app**
+
+1. In the Xcode project navigator, locate the "Helpers" folder.
+2. Create a new file called "Secrets.swift" in the "Helpers" folder.
+3. Open the "Secrets.swift" file and add the following code, replacing "YOUR_API_KEY" with your actual API key:
 
 ```
 let apiKey = "YOUR_API_KEY"
 ```
+
+Remember to keep your API key confidential and avoid sharing it publicly.
