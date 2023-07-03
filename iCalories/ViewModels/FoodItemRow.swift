@@ -42,23 +42,25 @@ struct FoodItemRow: View {
                         Image(systemName: favoriteFoodArray.contains(where: {$0.name == food.name! && $0.grams == food.grams && $0.calories == food.calories}) ? "star.fill" : "star")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 20, height: 20)
+                            .frame(width: iconSizeMedium, height: iconSizeMedium)
                             .foregroundColor(.teal)
                     }
                     .buttonStyle(PlainButtonStyle())
                     .background(Color.clear)
                     .padding(.horizontal)
+                    .padding(.vertical, -8)
                     Button(action: {
                         selectedFood = food
                     }) {
                         Image(systemName: "pencil")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 20, height: 20)
+                            .frame(width: iconSizeMedium, height: iconSizeMedium)
                             .foregroundColor(.teal)
                     }
                     .buttonStyle(PlainButtonStyle())
                     .background(Color.clear)
+                    .padding(.vertical, -8)
                 }
             }
         }

@@ -131,10 +131,11 @@ struct FoodListView: View {
                 SearchFoodView()
             }
             .sheet(item: $selectedFood) { food in
-                EditFoodView(food: food)
+                let ratio: Double = food.calories / food.grams
+                FoodEditorView(food: food, optRatio: ratio)
             }
             .sheet(isPresented: $showingAddFoodView) {
-                AddFoodView(optName: nil, optGrams: nil, optCalories: nil, optRatio: nil)
+                FoodEditorView(optName: nil, optGrams: nil, optCalories: nil, optRatio: nil)
             }
         }
         .navigationViewStyle(.stack)

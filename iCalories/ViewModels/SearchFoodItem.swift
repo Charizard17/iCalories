@@ -45,7 +45,7 @@ struct SearchFoodItem: View {
                 .buttonStyle(PlainButtonStyle())
                 .background(Color.clear)
                 .sheet(isPresented: $showingAddFoodView) {
-                    AddFoodView(optName: foodItem.name.prefix(1).capitalized + foodItem.name.dropFirst(), optGrams: foodItem.servingSize, optCalories: foodItem.calories, optRatio: optRatio)
+                    FoodEditorView(optName: foodItem.name.prefix(1).capitalized + foodItem.name.dropFirst(), optGrams: foodItem.servingSize, optCalories: foodItem.calories, optRatio: optRatio)
                 }
             }
         }

@@ -1,16 +1,10 @@
-//
-//  AddFoodView.swift
-//  iCalories
-//
-//  Created by Esad Dursun on 23.06.23.
-//
-
 import SwiftUI
 
-struct AddFoodView: View {
+struct FoodEditorView: View {
     @Environment(\.managedObjectContext) var managedObjContext
     @Environment(\.dismiss) var dismiss
     
+    var food: FetchedResults<Food>.Element?
     var optName: String?
     var optGrams: Double?
     var optCalories: Double?
@@ -23,16 +17,17 @@ struct AddFoodView: View {
     @State private var isAutoCalculateChecked: Bool
     @State private var isNameEmptyAlertPresented = false
     
-    init(optName: String?, optGrams: Double?, optCalories: Double?, optRatio: Double?) {
+    init(food: FetchedResults<Food>.Element? = nil, optName: String? = nil, optGrams: Double? = nil, optCalories: Double? = nil, optRatio: Double? = nil) {
+        self.food = food
         self.optName = optName
         self.optGrams = optGrams
         self.optCalories = optCalories
         self.optRatio = optRatio
         
-        _name = State(initialValue: optName ?? "")
-        _calories = State(initialValue: optCalories ?? 0)
-        _grams = State(initialValue: optGrams ?? 0)
-        _isAutoCalculateChecked = State(initialValue: (optGrams != nil && optCalories != nil))
+        _name = State(initialValue: food?.name ?? optName ?? "")
+        _calories = State(initialValue: food?.calories ?? optCalories ?? 0)
+        _grams = State(initialValue: food?.grams ?? optGrams ?? 0)
+        _isAutoCalculateChecked = State(initialValue: (optGrams != nil && optCalories != nil) || optRatio != nil)
     }
     
     var isNameEmpty: Bool {
@@ -46,6 +41,13 @@ struct AddFoodView: View {
                     TextField("Food name", text: $name)
                         .font(.system(size: largeFontSize))
                         .padding(.vertical)
+                        .onAppear {
+                            if let food = food {
+                                date = food.date!
+                                grams = food.grams
+                                calories = food.calories
+                            }
+                        }
                     
                     VStack(alignment: .leading) {
                         Text("Grams: \(Int(grams))")
@@ -87,7 +89,11 @@ struct AddFoodView: View {
                             if isNameEmpty {
                                 isNameEmptyAlertPresented = true
                             } else {
-                                DataController().addFood(date: date, name: name, grams: grams, calories: calories, context: managedObjContext)
+                                if let food = food {
+                                    DataController().editFood(food: food, date: date, name: name, grams: grams, calories: calories, context: managedObjContext)
+                                } else {
+                                    DataController().addFood(date: date, name: name, grams: grams, calories: calories, context: managedObjContext)
+                                }
                                 dismiss()
                             }
                         }) {
@@ -105,7 +111,7 @@ struct AddFoodView: View {
                     }
                 }
             }
-            .navigationTitle(addFoodViewTitle)
+            .navigationTitle(food != nil ? editFoodViewTitle : addFoodViewTitle)
             .onChange(of: grams) { newValue in
                 if isAutoCalculateChecked {
                     calculateCaloriesFromGrams()
@@ -122,8 +128,8 @@ struct AddFoodView: View {
     }
 }
 
-struct AddFoodView_Previews: PreviewProvider {
+struct FoodEditorView_Previews: PreviewProvider {
     static var previews: some View {
-        AddFoodView(optName: nil, optGrams: nil, optCalories: nil, optRatio: nil)
+        FoodEditorView()
     }
 }
