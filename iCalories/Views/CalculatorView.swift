@@ -74,14 +74,14 @@ struct CalculatorView: View {
                     .pickerStyle(SegmentedPickerStyle())
                 }
                 
-                Section {
+                Section(header: Text("Personal Info")) {
                     TextField("Age", text: $age)
                         .keyboardType(.numberPad)
                         .accentColor(.teal)
-                    TextField("Weight (kg)", text: $weight)
+                    TextField("Height (cm)", text: $height)
                         .keyboardType(.numberPad)
                         .accentColor(.teal)
-                    TextField("Height (cm)", text: $height)
+                    TextField("Weight (kg)", text: $weight)
                         .keyboardType(.numberPad)
                         .accentColor(.teal)
                 }
