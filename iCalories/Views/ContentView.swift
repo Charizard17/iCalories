@@ -23,6 +23,7 @@ struct ContentView: View {
                 }
         }
         .accentColor(.teal)
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
