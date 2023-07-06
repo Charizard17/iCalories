@@ -5,11 +5,14 @@
 //  Created by Esad Dursun on 01.07.23.
 //
 
-//MARK: - Text
+//MARK: - Texts
 let appTitle: String = "iCalories"
 let addFoodViewTitle: String = "Add Food"
 let editFoodViewTitle: String = "Edit Food"
+let progressViewTitle: String = "Progress"
 let calculatorViewTitle: String = "BMR Calculator"
+
+let goalKey: String = "DailyCaloriesGoal"
 
 let selectDateText: String = "Select a date"
 let autoCalculateText: String = "Auto Calculate"

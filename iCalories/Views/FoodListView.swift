@@ -139,8 +139,6 @@ struct FoodListView: View {
             }
         }
         .navigationViewStyle(.stack)
-        .accentColor(.teal)
-        .background(Color.red)
         .font(.system(size: mediumFontSize, weight: .regular))
     }
     
@@ -202,13 +200,6 @@ struct FoodListView: View {
 
 struct FoodListView_Previews: PreviewProvider {
     static var previews: some View {
-        let context = DataController().container.viewContext
-        let food = Food(context: context)
-        food.name = "Apple"
-        food.grams = 200
-        food.calories = 100
-        
         return FoodListView()
-            .environment(\.managedObjectContext, context)
     }
 }

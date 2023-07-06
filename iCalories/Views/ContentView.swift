@@ -13,7 +13,12 @@ struct ContentView: View {
         TabView {
             FoodListView()
                 .tabItem {
-                    Image(systemName: "list.bullet")
+                    Image(systemName: "list.bullet.rectangle.portrait.fill")
+                        .font(.system(size: iconSizeLarge, weight: .bold))
+                }
+            ProgressView()
+                .tabItem {
+                    Image(systemName: "chart.bar.fill")
                         .font(.system(size: iconSizeLarge, weight: .bold))
                 }
             CalculatorView()
