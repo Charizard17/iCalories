@@ -9,7 +9,7 @@
 import SwiftUI
 import Charts
 
-struct ProgressView: View {
+struct ChartsView: View {
     @FetchRequest(sortDescriptors: [SortDescriptor(\.date, order: .reverse)]) var foodArray: FetchedResults<Food>
     
     @AppStorage(goalKey) var goal: Int = 1700
@@ -62,7 +62,7 @@ struct ProgressView: View {
                     .padding(.bottom, -15)
                 Chart {
                     RuleMark(y: .value("Goal", goal))
-                        .foregroundStyle(Color.red)
+                        .foregroundStyle(Color.pink)
                         .lineStyle(StrokeStyle(lineWidth: 1, dash: [5]))
                         .annotation(alignment: .trailing) {
                             Text("Goal")
@@ -95,7 +95,7 @@ struct ProgressView: View {
                     DottedLine()
                         .stroke(style: StrokeStyle(lineWidth: 1, dash: [5]))
                         .frame(width: 50, height: 1)
-                        .foregroundColor(Color.red)
+                        .foregroundColor(Color.pink)
                     Stepper("Goal: \(goal)", value: $goal, in: 100...5000, step: 100)
                         .font(.system(size: smallFontSize))
                         .foregroundColor(.gray)
@@ -145,7 +145,7 @@ struct ProgressView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle(progressViewTitle)
+            .navigationTitle(chartsViewTitle)
             .toolbar {
                 ToolbarItem(placement: .principal) {
                     Image(uiImage: UIImage(named: iCaloriesLogoAsset) ?? UIImage())
@@ -160,7 +160,7 @@ struct ProgressView: View {
 
 struct ProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        ProgressView()
+        ChartsView()
     }
 }
 

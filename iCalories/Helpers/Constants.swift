@@ -9,7 +9,7 @@
 let appTitle: String = "iCalories"
 let addFoodViewTitle: String = "Add Food"
 let editFoodViewTitle: String = "Edit Food"
-let progressViewTitle: String = "Progress"
+let chartsViewTitle: String = "Progress"
 let calculatorViewTitle: String = "BMR Calculator"
 
 let goalKey: String = "DailyCaloriesGoal"

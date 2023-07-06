@@ -16,7 +16,7 @@ struct ContentView: View {
                     Image(systemName: "list.bullet.rectangle.portrait.fill")
                         .font(.system(size: iconSizeLarge, weight: .bold))
                 }
-            ProgressView()
+            ChartsView()
                 .tabItem {
                     Image(systemName: "chart.bar.fill")
                         .font(.system(size: iconSizeLarge, weight: .bold))

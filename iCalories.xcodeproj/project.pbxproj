@@ -26,7 +26,7 @@
 		400DB8EE2A4F378C009C467E /* FoodItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8ED2A4F378C009C467E /* FoodItemRow.swift */; };
 		400DB8F22A4F812B009C467E /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8F12A4F812B009C467E /* Utils.swift */; };
 		400DB8F42A50534F009C467E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400DB8F32A50534F009C467E /* Constants.swift */; };
-		406A64282A56E1E4004853AF /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406A64272A56E1E4004853AF /* ProgressView.swift */; };
+		406A64282A56E1E4004853AF /* ChartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406A64272A56E1E4004853AF /* ChartsView.swift */; };
 		406D14CD2A506D9B00C9156A /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406D14CC2A506D9B00C9156A /* Secrets.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +51,7 @@
 		400DB8ED2A4F378C009C467E /* FoodItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItemRow.swift; sourceTree = "<group>"; };
 		400DB8F12A4F812B009C467E /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		400DB8F32A50534F009C467E /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		406A64272A56E1E4004853AF /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
+		406A64272A56E1E4004853AF /* ChartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsView.swift; sourceTree = "<group>"; };
 		406D14CC2A506D9B00C9156A /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,7 +123,7 @@
 				400DB8B52A44ECD0009C467E /* FoodListView.swift */,
 				400DB8CA2A459CDF009C467E /* FoodEditorView.swift */,
 				400DB8D62A4887C2009C467E /* SearchFoodView.swift */,
-				406A64272A56E1E4004853AF /* ProgressView.swift */,
+				406A64272A56E1E4004853AF /* ChartsView.swift */,
 				400DB8EB2A4F217B009C467E /* CalculatorView.swift */,
 			);
 			path = Views;
@@ -237,7 +237,7 @@
 				400DB8E02A4B4A81009C467E /* FoodItem.swift in Sources */,
 				400DB8EA2A4F1F99009C467E /* ContentView.swift in Sources */,
 				400DB8EE2A4F378C009C467E /* FoodItemRow.swift in Sources */,
-				406A64282A56E1E4004853AF /* ProgressView.swift in Sources */,
+				406A64282A56E1E4004853AF /* ChartsView.swift in Sources */,
 				400DB8CD2A459FF7009C467E /* TimeFormatting.swift in Sources */,
 				400DB8DC2A4B4779009C467E /* SearchBar.swift in Sources */,
 			);
@@ -367,7 +367,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"iCalories/Preview Content\"";
 				DEVELOPMENT_TEAM = 75YQ4354B7;
 				ENABLE_PREVIEWS = YES;
@@ -401,7 +401,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"iCalories/Preview Content\"";
 				DEVELOPMENT_TEAM = 75YQ4354B7;
 				ENABLE_PREVIEWS = YES;
