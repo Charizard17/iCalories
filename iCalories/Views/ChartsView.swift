@@ -1,5 +1,5 @@
 //
-//  ProgressView.swift
+//  ChartsView.swift
 //  iCalories
 //
 //  Created by Esad Dursun on 06.07.23.
@@ -158,7 +158,7 @@ struct ChartsView: View {
     }
 }
 
-struct ProgressView_Previews: PreviewProvider {
+struct ChartsView_Previews: PreviewProvider {
     static var previews: some View {
         ChartsView()
     }

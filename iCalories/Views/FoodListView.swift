@@ -67,15 +67,16 @@ struct FoodListView: View {
                         }
                     }
                 }
-                
-                List {
-                    if groupedFoodArray.count == 0 {
+                if groupedFoodArray.count == 0 {
+                    List {
                         VStack(alignment: .trailing) {
                             Text("Today: 0 g – 0 Kcal")
                                 .font(.system(size: largeFontSize, weight: .bold))
                                 .foregroundColor(.gray)
                         }
-                    } else {
+                    }
+                } else {
+                    List {
                         ForEach(groupedFoodArray, id: \.0) { date, foodItems in
                             Section(header: Text(dateHeader(for: date))) {
                                 ForEach(foodItems) { food in
