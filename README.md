@@ -14,6 +14,12 @@ iCalories is a simple iOS app that helps users track their food consumption and 
 
 - **API Integration**: iCalories integrates with the CalorieNinja API to provide additional information about food items, such as serving size, fat content, protein, sodium, and more.
 
+## Screenshots
+
+<img src = "assets/screenshot-0.png" width ="200" /> <img src = "assets/screenshot-1.png" width ="200" /> <img src = "assets/screenshot-2.png" width ="200" />
+<br>
+<img src = "assets/screenshot-3.png" width ="200" /> <img src = "assets/screenshot-4.png" width ="200" /> <img src = "assets/screenshot-5.png" width ="200" />
+
 ## Getting Started
 
 To get started with iCalories, follow these steps:
@@ -24,8 +30,8 @@ To get started with iCalories, follow these steps:
 
 ## Requirements
 
-- iOS 14.0 or later
-- Xcode 12.0 or later
+- iOS 16.0 or later
+- Xcode 14.0 or later
 - Swift 5.0 or later
 
 ## Reminder
