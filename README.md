@@ -10,9 +10,13 @@ iCalories is a simple iOS app that helps users track their food consumption and 
 
 - **Date Selection**: Assign a specific date to each food entry to keep track of when you consumed it. The app includes a date picker for easy selection of the desired date.
 
+- **BMR Calculation**: Calculate your Basal Metabolic Rate (BMR) to determine the number of calories your body needs at rest. This feature helps you set personalized calorie goals for effective calorie tracking.
+
 - **Core Data Integration**: All food entries are stored using Core Data, a powerful and efficient data persistence framework provided by Apple. This ensures that your food diary is saved and can be accessed even when the app is closed.
 
 - **API Integration**: iCalories integrates with the CalorieNinja API to provide additional information about food items, such as serving size, fat content, protein, sodium, and more.
+
+- **Progress Tracking**: Monitor your calorie intake progress over time with interactive charts. The app visualizes your calorie and grams consumption to help you stay on track and achieve your goals.
 
 ## Screenshots
 
